@@ -1,0 +1,194 @@
+.navbar {
+  background-color: $primary-bg;
+
+  .nav__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+
+    @media (max-width: 740px) {
+      padding: 1.5rem;
+    }
+
+    &-left {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .menu-icon {
+        font-size: 3rem;
+        color: $white-color;
+        cursor: pointer;
+      }
+
+      .nav__logo-link {
+        display: block;
+        padding: 1rem 0;
+        margin: 0 1.5rem;
+
+        @media (max-width: 740px) {
+          display: none;
+        }
+
+        > img {
+          display: block;
+          max-width: 100%;
+          height: auto;
+        }
+      }
+    }
+
+    &-right {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      @media (max-width: 740px) {
+        flex: 1;
+      }
+
+      .nav__input {
+        position: relative;
+        margin-right: 1.5rem;
+
+        @media (max-width: 740px) {
+          width: 100%;
+          margin-left: 1.5rem;
+          margin-right: 0.5rem;
+        }
+
+        > input {
+          font-size: 1.5rem;
+          border: none;
+          outline: none;
+          box-shadow: none;
+          padding: 1.5rem 1.5rem 1.5rem 4rem;
+          background-color: $dawn-pinka;
+          width: 20rem;
+          max-width: 100%;
+          height: 3.5rem;
+          border-radius: 2rem;
+          transition: 0.15s ease;
+
+          @media (max-width: 740px) {
+            width: 100%;
+            height: 3rem;
+          }
+
+          &:hover {
+            background-color: $white-color;
+          }
+
+          &:focus {
+            width: 30rem;
+
+            @media (max-width: 740px) {
+              display: none;
+            }
+          }
+        }
+
+        .nav__icon-search {
+          position: absolute;
+          top: 50%;
+          left: 1rem;
+          font-size: 2.5rem;
+          transform: translateY(-50%);
+        }
+      }
+
+      .nav__other {
+        position: relative;
+
+        .nav__ion-mobile {
+          display: none;
+          cursor: pointer;
+
+          @media (max-width: 1023px) {
+            display: block;
+          }
+
+          .icon-more {
+            font-size: 3rem;
+            color: $white-color;
+          }
+        }
+
+        &-user {
+          @media (max-width: 1023px) {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 20rem;
+            background-color: $white-color;
+            padding: 1.5rem;
+            box-shadow: 0px 5px 5px -3px rgba($color: #000000, $alpha: 0.2);
+            border-radius: 0.5rem;
+            visibility: hidden;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: 0.25s;
+          }
+
+          .nav__btn {
+            display: flex;
+            align-items: center;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            width: fit-content;
+
+            .btn {
+              font-size: 1.2rem;
+              display: flex;
+              align-items: center;
+              color: $white-color;
+              text-decoration: none;
+              padding: 0.5rem 1rem;
+              transition: background-color ease 0.25s;
+
+              &-icon {
+                font-size: 1.8rem;
+                margin-right: 0.5rem;
+              }
+            }
+
+            &-login {
+              background-color: $indigo;
+
+              &:hover {
+                background-color: $bay-of-many;
+              }
+            }
+
+            &-register {
+              color: $text-color !important;
+              background-color: $dawn-pinka;
+
+              &:hover {
+                background-color: $white-color;
+              }
+            }
+          }
+        }
+
+        &-user.show {
+          visibility: visible;
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+    }
+  }
+}
+
+.triangle {
+  display: inline-block;
+  border-width: 10px 15px;
+  border-style: solid;
+  border-color: transparent transparent green transparent;
+}
