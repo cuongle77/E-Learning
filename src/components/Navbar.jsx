@@ -9,7 +9,7 @@ import {
 import { NavLink } from "react-router-dom";
 import Logo from "../assets/images/logo.webp";
 
-const Navbar = () => {
+const Navbar = ({ handleShowFullSidebar }) => {
   const [show, setShow] = useState(false);
   const handleShowUserJoin = (e) => {
     return !show ? setShow(true) : setShow(false);
@@ -34,7 +34,7 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="nav__content">
         <div className="nav__content-left">
-          <IoMdMenu className="menu-icon" />
+          <IoMdMenu className="menu-icon" onClick={handleShowFullSidebar} />
           <NavLink to="/" className="nav__logo-link" title="Home">
             <img src={Logo} alt="" />
           </NavLink>
