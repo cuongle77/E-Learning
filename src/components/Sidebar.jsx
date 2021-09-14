@@ -39,6 +39,7 @@ const Sidebar = ({ isShow }) => {
               className={
                 active === index ? "sidebar__link action" : "sidebar__link"
               }
+              title={item.name}
             >
               <item.icon className="sidebar__link-icon" />
               <span>{item.name}</span>

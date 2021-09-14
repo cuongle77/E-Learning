@@ -1,18 +1,21 @@
 .sidebar {
   position: fixed;
+  top: 0;
   left: 0;
-  width: 6rem;
+  width: $width-sidebar;
   height: 100%;
   background-color: $white-color;
-  box-shadow: 0px 5px 5px 0px rgba($color: #000000, $alpha: 0.2);
+  // box-shadow: 0px 5px 5px 0px rgba($color: #000000, $alpha: 0.2);
   z-index: 1200;
   padding-top: $height-nav;
   transition: 0.25s ease-in-out;
+  overflow: hidden;
 
   &__content {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding-top: 1.5rem;
 
     .sidebar__link {
       font-size: 1.4rem;
@@ -49,7 +52,9 @@
 }
 
 .sidebar.show {
-  width: 22rem;
+  width: $width-sidebar-change;
+  border-bottom-left-radius: 2rem;
+  border-bottom-right-radius: 2rem;
 
   > .sidebar__content {
     > .sidebar__link {

@@ -1,0 +1,21 @@
+.main {
+  --spacing: 4rem;
+  margin-top: $height-nav + 2rem;
+  margin-left: $width-sidebar;
+  padding-left: var(--spacing);
+  padding-right: var(--spacing);
+  transition: 0.25s ease-in-out;
+
+  .home__wrapper {
+    margin-top: var(--spacing);
+    margin-left: var(--spacing);
+    margin-right: var(--spacing);
+  }
+}
+
+.main.change {
+  margin-left: $width-sidebar-change;
+}
+
+@import "./hero";
+@import "./suggested-course";
