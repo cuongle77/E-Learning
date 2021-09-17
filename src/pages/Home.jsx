@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Hero from "../components/Hero";
+import MainWrapper from "../components/MainWrapper";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import SuggestedCourse from "../components/SuggestedCourse";
@@ -15,13 +16,13 @@ const Home = () => {
       <Navbar handleShowFullSidebar={handleShowFullSidebar} />
       <Sidebar isShow={isShow} />
 
-      <div className={isShow ? "main change" : "main"}>
+      <MainWrapper className={isShow ? "main change" : "main"}>
         <Hero />
 
         <div className="home__wrapper">
           <SuggestedCourse />
         </div>
-      </div>
+      </MainWrapper>
     </div>
   );
 };

@@ -34,7 +34,7 @@ const Sidebar = ({ isShow }) => {
           return (
             <NavLink
               key={index}
-              to="###"
+              to={item.path}
               onClick={() => handleActive(index)}
               className={
                 active === index ? "sidebar__link action" : "sidebar__link"

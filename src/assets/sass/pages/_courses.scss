@@ -1,0 +1,50 @@
+.course__all {
+  .all__in-function {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .item {
+      margin: 0 1.5rem;
+
+      > select {
+        font-size: 1.4rem;
+        font-weight: 300;
+        color: #333;
+        width: 100%;
+        border: none;
+        outline: none;
+        background-color: transparent;
+        padding: 0.5rem 1rem;
+        border-bottom: 1px solid #333;
+        cursor: pointer;
+      }
+    }
+
+    .item.search {
+      > input {
+        outline: none;
+        box-shadow: none;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        border: 1px solid $dusty-gray;
+        background-color: transparent;
+
+        &:focus {
+          border-color: $text-color;
+        }
+      }
+    }
+  }
+
+  .courses {
+    --column: 9;
+    --spacing: 1.2rem;
+    margin-top: 5rem;
+
+    .item__wrap {
+      width: calc(100% / var(--column));
+      margin-left: var(--spacing);
+      margin-right: var(--spacing);
+    }
+  }
+}
