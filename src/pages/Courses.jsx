@@ -1,81 +1,58 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import CourseItem from "../components/CourseItem";
+import AllCourses from "../components/AllCourses";
+import CourseSort from "../components/CourseSort";
+import FilterCategory from "../components/FilterCategory";
+import FilterGroup from "../components/FilterGroup";
 import { fetchCategory, fetchCourses } from "../store/actions/courses";
 
 const Courses = () => {
   const [group, setGroup] = useState("GP08");
-  const [code, setCode] = useState("");
+  const [code, setCode] = useState("all");
+  const [key, setKey] = useState("");
   const dispatch = useDispatch();
   const { courses, tabsCategory } = useSelector((state) => state.courseReducer);
 
   useEffect(() => {
-    dispatch(fetchCourses(group));
+    dispatch(fetchCourses(code, group, key));
     dispatch(fetchCategory());
-  }, [dispatch, group, code]);
+  }, [dispatch, group, code, key]);
+
+  const handleSearchCourse = (value) => {
+    setCode("all");
+    setKey(value);
+  };
 
   return (
     <div className="course__all">
       <div className="all__in-function">
-        <div className="item">
-          <select name="" id="">
-            <option value="">Created Date</option>
-            <option value="">Title: A-Z</option>
-            <option value="">Title: Z-A</option>
-            <option value="">Course ID</option>
-          </select>
+        <div className="item sort">
+          <CourseSort />
         </div>
-        <div className="item">
-          <select
-            name=""
-            id=""
-            value={code}
-            onChange={(e) => setCode(e.target.value)}
-          >
-            <option value={group}>All Topic</option>
-            {tabsCategory?.map((item, index) => {
-              return (
-                <option key={index} value={item.maDanhMuc}>
-                  {item.tenDanhMuc}
-                </option>
-              );
-            })}
-          </select>
+
+        <div className="item filter__category">
+          <FilterCategory
+            tabsCategory={tabsCategory}
+            code={code}
+            setCode={setCode}
+          />
         </div>
-        <div className="item">
-          <select
-            name=""
-            id=""
-            onChange={(e) => setGroup(e.target.value)}
-            value={group}
-          >
-            <option value="GP01">Group 1</option>
-            <option value="GP02">Group 2</option>
-            <option value="GP03">Group 3</option>
-            <option value="GP04">Group 4</option>
-            <option value="GP05">Group 5</option>
-            <option value="GP06">Group 6</option>
-            <option value="GP07">Group 7</option>
-            <option value="GP08">Group 8</option>
-          </select>
+
+        <div className="item filter__group">
+          <FilterGroup setGroup={setGroup} group={group} />
         </div>
+
         <div className="item search">
-          <input type="text" placeholder="Search" />
+          <input
+            type="text"
+            placeholder="Search"
+            onChange={(e) => handleSearchCourse(e.target.value)}
+          />
         </div>
       </div>
 
       <div className="courses">
-        <div className="grid">
-          <div className="row" style={{ justifyContent: "center" }}>
-            {courses?.map((item, index) => {
-              return (
-                <div key={index} className="item__wrap">
-                  <CourseItem item={item} index={index} />
-                </div>
-              );
-            })}
-          </div>
-        </div>
+        <AllCourses courses={courses} />
       </div>
     </div>
   );

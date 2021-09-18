@@ -6,6 +6,7 @@ const initialState = {
   courseCategory: null,
   categoryCode: "BackEnd",
   courseDetails: null,
+  loading: false,
 };
 
 export const courseReducer = (state = initialState, action) => {
@@ -33,6 +34,14 @@ export const courseReducer = (state = initialState, action) => {
     case actionType.FETCH_COURSE_DETAILS: {
       state.courseDetails = action.courseDetails;
       return { ...state };
+    }
+
+    case actionType.SHOW_LOADER: {
+      return { ...state, loading: true };
+    }
+
+    case actionType.HIDE_LOADER: {
+      return { ...state, loading: false };
     }
 
     default:

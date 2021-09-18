@@ -1,17 +1,26 @@
 import * as actionType from "./actionTypes";
 import axios from "../../settings/axios";
 
-export const fetchCourses = (groupCode) => {
+export const fetchCourses = (courseType, groupCode, keyword) => {
   return async (dispatch) => {
     try {
-      const result = await axios.get(
-        `/QuanLyKhoaHoc/LayDanhSachKhoaHoc?MaNhom=${groupCode}`
-      );
+      let url = `/QuanLyKhoaHoc/LayKhoaHocTheoDanhMuc?maDanhMuc=${courseType}&MaNhom=${groupCode}`;
+
+      if (courseType === "all") {
+        url = `/QuanLyKhoaHoc/LayDanhSachKhoaHoc?MaNhom=${groupCode}`;
+      }
+
+      if (keyword) {
+        url = `/QuanLyKhoaHoc/LayDanhSachKhoaHoc?tenKhoaHoc=${keyword}&MaNhom=${groupCode}`;
+      }
+
+      const result = await axios.get(url);
 
       dispatch({
         courses: result.data,
         type: actionType.FETCH_COURSES,
       });
+      showLoader(true);
     } catch (error) {
       console.log(error);
     }
@@ -54,7 +63,7 @@ export const fetCourseDetails = (courseCode) => {
   return async (dispatch) => {
     try {
       const result = await axios.get(
-        `https://elearning0706.cybersoft.edu.vn/api/QuanLyKhoaHoc/LayThongTinKhoaHoc?maKhoaHoc=${courseCode}`
+        `/QuanLyKhoaHoc/LayThongTinKhoaHoc?maKhoaHoc=${courseCode}`
       );
 
       dispatch({
@@ -66,3 +75,13 @@ export const fetCourseDetails = (courseCode) => {
     }
   };
 };
+
+export const showLoader = (status) => ({
+  type: actionType.SHOW_LOADER,
+  status,
+});
+
+export const hideLoader = (status) => ({
+  type: actionType.HIDE_LOADER,
+  status,
+});

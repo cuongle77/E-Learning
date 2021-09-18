@@ -11,6 +11,7 @@ import { MdHelpOutline } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { fetCourseDetails } from "../store/actions/courses";
 import { useSelector } from "react-redux";
+import Loading from "../components/Loading";
 
 const CourseDetails = (props) => {
   const dataTabs = [
@@ -115,156 +116,161 @@ const CourseDetails = (props) => {
   }, [dispatch, id]);
 
   return (
-    <div className="course__details">
-      <div className="grid">
-        <div className="row" style={{ flexWrap: "wrap-reverse" }}>
-          <div className="col l-8">
-            <div className="course__details-description">
-              <div className="course__info">
-                <h2>{courseDetails?.tenKhoaHoc}</h2>
-                <p>{courseDetails?.moTa}</p>
-                <ReactStars classNames="hello" {...secondExample} />
-                <div className="course__creator">
-                  <p>
-                    Created by <span>{courseDetails?.nguoiTao?.hoTen}</span>
-                  </p>
-                  <p>Last updated {courseDetails?.ngayTao}</p>
+    <>
+      <Loading />
+      <div className="course__details">
+        <div className="grid">
+          <div className="row" style={{ flexWrap: "wrap-reverse" }}>
+            <div className="col l-8">
+              <div className="course__details-description">
+                <div className="course__info">
+                  <h2>{courseDetails?.tenKhoaHoc}</h2>
+                  <p>{courseDetails?.moTa}</p>
+                  <ReactStars classNames="hello" {...secondExample} />
+                  <div className="course__creator">
+                    <p>
+                      Created by <span>{courseDetails?.nguoiTao?.hoTen}</span>
+                    </p>
+                    <p>Last updated {courseDetails?.ngayTao}</p>
+                  </div>
                 </div>
-              </div>
 
-              <div className="info__more">
-                <div className="info__tab">
-                  {dataTabs.map((item, index) => {
-                    return (
-                      <button
-                        key={index}
-                        className={
-                          tabIndex === index ? "tab__item add" : "tab__item"
-                        }
-                        onClick={() => setTabIndex(index)}
-                      >
-                        <item.icon /> {item.name}
-                      </button>
-                    );
-                  })}
-                </div>
-                <div className="info__wrap">
-                  <div className="info__content">
-                    {dataContent?.map((item, index) => {
+                <div className="info__more">
+                  <div className="info__tab">
+                    {dataTabs.map((item, index) => {
                       return (
-                        <div
+                        <button
                           key={index}
                           className={
-                            tabIndex === index
-                              ? "info__item show"
-                              : "info__item"
+                            tabIndex === index ? "tab__item add" : "tab__item"
                           }
+                          onClick={() => setTabIndex(index)}
                         >
-                          {item.itemChild?.map((subItem, subIndex) => {
-                            return (
-                              <div key={subIndex} className="item__block">
-                                <h4>{subItem.title}</h4>
-                                <p>{subItem.contentText}</p>
+                          <item.icon /> {item.name}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  <div className="info__wrap">
+                    <div className="info__content">
+                      {dataContent?.map((item, index) => {
+                        return (
+                          <div
+                            key={index}
+                            className={
+                              tabIndex === index
+                                ? "info__item show"
+                                : "info__item"
+                            }
+                          >
+                            {item.itemChild?.map((subItem, subIndex) => {
+                              return (
+                                <div key={subIndex} className="item__block">
+                                  <h4>{subItem.title}</h4>
+                                  <p>{subItem.contentText}</p>
 
-                                <div className="list__wrap">
-                                  {subItem.contentChildItem?.map(
-                                    (subIconCheck, indexCheck) => {
-                                      return (
-                                        <div
-                                          key={indexCheck}
-                                          className="list__item"
-                                        >
-                                          {subIconCheck.itemChild?.map(
-                                            (icon, iconIds) => {
-                                              return (
-                                                <p key={iconIds}>
-                                                  <icon.icon />
-                                                  {icon.text}
-                                                </p>
-                                              );
-                                            }
-                                          )}
-                                        </div>
-                                      );
-                                    }
-                                  )}
-                                  <div className="list__required">
-                                    {subItem.contentChildLearn?.map(
-                                      (iconLearn, indexLearn) => {
+                                  <div className="list__wrap">
+                                    {subItem.contentChildItem?.map(
+                                      (subIconCheck, indexCheck) => {
                                         return (
-                                          <p key={indexLearn}>
-                                            <iconLearn.icon />
-                                            {iconLearn.text}
-                                          </p>
+                                          <div
+                                            key={indexCheck}
+                                            className="list__item"
+                                          >
+                                            {subIconCheck.itemChild?.map(
+                                              (icon, iconIds) => {
+                                                return (
+                                                  <p key={iconIds}>
+                                                    <icon.icon />
+                                                    {icon.text}
+                                                  </p>
+                                                );
+                                              }
+                                            )}
+                                          </div>
                                         );
                                       }
                                     )}
+                                    <div className="list__required">
+                                      {subItem.contentChildLearn?.map(
+                                        (iconLearn, indexLearn) => {
+                                          return (
+                                            <p key={indexLearn}>
+                                              <iconLearn.icon />
+                                              {iconLearn.text}
+                                            </p>
+                                          );
+                                        }
+                                      )}
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                            );
-                          })}
-                          <p
-                            style={
-                              index === 0
-                                ? { display: "none" }
-                                : { display: "block" }
-                            }
-                          >
-                            {item.content}
-                          </p>
-                        </div>
-                      );
-                    })}
+                              );
+                            })}
+                            <p
+                              style={
+                                index === 0
+                                  ? { display: "none" }
+                                  : { display: "block" }
+                              }
+                            >
+                              {item.content}
+                            </p>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="col l-4">
-            <div className="course__details-block">
-              <div className="block__item">
-                <div
-                  className="item__img"
-                  style={{ backgroundImage: `url(${courseDetails?.hinhAnh})` }}
-                >
-                  <div className="img__avarta">
-                    <img src="https://i.pravatar.cc/300" alt="" />
+            <div className="col l-4">
+              <div className="course__details-block">
+                <div className="block__item">
+                  <div
+                    className="item__img"
+                    style={{
+                      backgroundImage: `url(${courseDetails?.hinhAnh})`,
+                    }}
+                  >
+                    <div className="img__avarta">
+                      <img src="https://i.pravatar.cc/300" alt="" />
+                    </div>
                   </div>
-                </div>
-                <div className="item__content">
-                  <h4>Free 0%</h4>
+                  <div className="item__content">
+                    <h4>Free 0%</h4>
 
-                  <button>Register</button>
+                    <button>Register</button>
 
-                  <div className="item__overview">
-                    <h4>This course includes:</h4>
-                    <ul>
-                      <li>
-                        <MdHelpOutline /> 26.5 hours on-demand video
-                      </li>
-                      <li>
-                        <MdHelpOutline /> 13 articles
-                      </li>
-                      <li>
-                        <MdHelpOutline />1 downloadable resource
-                      </li>
-                      <li>
-                        <MdHelpOutline />
-                        26.5 hours on-demand video
-                      </li>
-                      <li>
-                        <MdHelpOutline /> 1 practice test
-                      </li>
-                      <li>
-                        <MdHelpOutline />
-                        Full lifetime access
-                      </li>
-                      <li>
-                        <MdHelpOutline />
-                        Access on mobile and TV
-                      </li>
-                    </ul>
+                    <div className="item__overview">
+                      <h4>This course includes:</h4>
+                      <ul>
+                        <li>
+                          <MdHelpOutline /> 26.5 hours on-demand video
+                        </li>
+                        <li>
+                          <MdHelpOutline /> 13 articles
+                        </li>
+                        <li>
+                          <MdHelpOutline />1 downloadable resource
+                        </li>
+                        <li>
+                          <MdHelpOutline />
+                          26.5 hours on-demand video
+                        </li>
+                        <li>
+                          <MdHelpOutline /> 1 practice test
+                        </li>
+                        <li>
+                          <MdHelpOutline />
+                          Full lifetime access
+                        </li>
+                        <li>
+                          <MdHelpOutline />
+                          Access on mobile and TV
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -272,7 +278,7 @@ const CourseDetails = (props) => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
