@@ -10,13 +10,13 @@ const Loading = () => {
 
     setTimeout(() => {
       setLoading(false);
-    }, 1500);
+    }, 1000);
   }, []);
   return (
     <>
       {isLoading ? (
         <div className="loading">
-          <div class="lds-ellipsis">
+          <div className="lds-ellipsis">
             <div></div>
             <div></div>
             <div></div>

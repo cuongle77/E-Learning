@@ -9,9 +9,12 @@ import {
 } from "react-icons/io5";
 import { MdHelpOutline } from "react-icons/md";
 import { useDispatch } from "react-redux";
-import { fetCourseDetails } from "../store/actions/courses";
+import { CourseEnroll, fetCourseDetails } from "../store/actions/courses";
 import { useSelector } from "react-redux";
 import Loading from "../components/Loading";
+import { Link } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CourseDetails = (props) => {
   const dataTabs = [
@@ -48,7 +51,6 @@ const CourseDetails = (props) => {
   const [tabIndex, setTabIndex] = useState(0);
   const dispatch = useDispatch();
   const { courseDetails } = useSelector((state) => state.courseReducer);
-
   const dataContent = [
     {
       itemChild: [
@@ -109,11 +111,16 @@ const CourseDetails = (props) => {
     { content: "Announcement" },
     { content: "Reviews" },
   ];
+  const account = JSON.parse(localStorage.getItem("account"));
 
   let { id } = props.match.params;
   useEffect(() => {
     dispatch(fetCourseDetails(id));
   }, [dispatch, id]);
+
+  const handleEnroll = () => {
+    dispatch(CourseEnroll(courseDetails?.maKhoaHoc, account.taiKhoan));
+  };
 
   return (
     <>
@@ -240,7 +247,13 @@ const CourseDetails = (props) => {
                   <div className="item__content">
                     <h4>Free 0%</h4>
 
-                    <button>Register</button>
+                    {account ? (
+                      <button onClick={handleEnroll}>Enroll now</button>
+                    ) : (
+                      <Link className="go_login" to="/login">
+                        Login to enroll
+                      </Link>
+                    )}
 
                     <div className="item__overview">
                       <h4>This course includes:</h4>
@@ -277,6 +290,7 @@ const CourseDetails = (props) => {
             </div>
           </div>
         </div>
+        <ToastContainer />
       </div>
     </>
   );

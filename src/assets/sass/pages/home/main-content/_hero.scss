@@ -65,9 +65,8 @@
       }
 
       .btn-go {
-        border: none;
-        outline: none;
-        box-shadow: none;
+        display: inline-block;
+        text-decoration: none;
         background-color: $primary-bg;
         padding: 1rem 3rem;
         color: $white-color;

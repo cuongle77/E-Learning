@@ -15,6 +15,7 @@
         font-size: 1.5rem;
         font-weight: 300;
         margin-bottom: 1.5rem;
+        line-height: 1.8;
       }
 
       .course__creator {
@@ -204,22 +205,27 @@
           font-weight: 300;
         }
 
-        > button {
+        > button,
+        .go_login {
+          font-size: 1.4rem;
+          text-decoration: none;
+          display: inline-block;
+          text-align: center;
           width: 100%;
           border: none;
           box-shadow: none;
-          background-image: linear-gradient(45deg, $gallery 50%, $cerulean 50%);
-          background-size: 250%;
+          background: $flamingo;
           transition: 0.5s;
           user-select: none;
+          color: $white-color;
           outline: none;
           padding: 1.2rem;
           border-radius: 0.5rem;
           cursor: pointer;
+          text-transform: uppercase;
 
           &:hover {
-            background-position: right;
-            color: $white-color;
+            background: $primary-bg;
           }
         }
 

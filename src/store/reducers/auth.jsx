@@ -1,19 +1,35 @@
 import * as actionType from "../actions/actionTypes";
 
 const initialState = {
-  login: false,
-  error: false,
+  isLogin: false,
+  isError: null,
+  errorMessage: null,
+  success: null,
 };
 
 export const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionType.LOGIN: {
-      let userAccount = {
-        accessToken: action.data.accessToken,
-        account: action.data.taiKhoan,
-      };
+    case actionType.AUTH_START: {
+      return { ...state };
+    }
 
-      return { ...state, ...userAccount };
+    case actionType.AUTH_SUCCESS: {
+      return {
+        ...state,
+        isLogin: action.isLogin,
+        isError: action.isError,
+        errorMessage: null,
+        success: action.message,
+      };
+    }
+
+    case actionType.AUTH_FAIL: {
+      return {
+        ...state,
+        isLogin: action.isLogin,
+        isError: action.isError,
+        errorMessage: action.error,
+      };
     }
 
     default:

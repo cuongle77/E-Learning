@@ -1,0 +1,77 @@
+.my__courses {
+  &__content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    .list__courses {
+      padding: 3rem;
+      border-radius: 0.5rem;
+      box-shadow: 0px 3px 6px rgba($black-color, $alpha: 0.16);
+      background-image: linear-gradient(
+        to right,
+        rgba($cornflower-blue, 0.9),
+        rgba($affair, 0.5)
+      );
+
+      > h2 {
+        text-align: center;
+        font-size: 3rem;
+        font-weight: 600;
+        user-select: none;
+        margin-bottom: 2rem;
+      }
+
+      > hr {
+        margin: 0.8rem 0;
+        border: none;
+        border-top: 1px solid $dove-gray;
+      }
+
+      > p {
+        font-size: 1.2rem;
+        text-align: center;
+        padding: 1rem;
+        border: 1px solid $text-color;
+        border-radius: 5rem;
+        user-select: none;
+      }
+
+      > li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 3rem;
+
+        > svg {
+          font-size: 3rem;
+        }
+
+        > a {
+          display: inline-block;
+          color: $text-color;
+          font-weight: 300;
+          text-align: center;
+          text-decoration: none;
+          font-size: 1.6rem;
+          margin: 0 1.5rem;
+          max-width: 50rem;
+          line-height: 1.5;
+        }
+
+        > button {
+          box-shadow: none;
+          outline: none;
+          background-color: transparent;
+          border: none;
+          cursor: pointer;
+          > svg {
+            font-size: 2.5rem;
+            color: $red;
+          }
+        }
+      }
+    }
+  }
+}

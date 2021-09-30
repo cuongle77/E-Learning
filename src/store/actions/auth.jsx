@@ -1,9 +1,36 @@
 import axios from "../../settings/axios";
 import * as actionType from "../actions/actionTypes";
 
-export const LoginAction = (values) => {
+export const authStart = () => {
+  return {
+    type: actionType.AUTH_START,
+  };
+};
+
+export const authFail = (error, { isLogin, isError }) => {
+  return {
+    type: actionType.AUTH_FAIL,
+    error: error,
+    isLogin: isLogin,
+    isError: isError,
+  };
+};
+
+export const authSuccess = (authData, { isLogin, isError }, message) => {
+  return {
+    type: actionType.AUTH_SUCCESS,
+    authData: authData,
+    isLogin: isLogin,
+    isError: isError,
+    message: message,
+  };
+};
+
+export const LoginAction = (values, history) => {
   return async (dispatch) => {
     try {
+      dispatch(authStart());
+
       let url = "/QuanLyNguoiDung/DangNhap";
       let authData = {
         taiKhoan: values.username,
@@ -12,14 +39,28 @@ export const LoginAction = (values) => {
 
       const result = await axios.post(url, authData);
 
-      localStorage.setItem("user", JSON.stringify(result.data));
-
-      dispatch({
-        type: actionType.LOGIN,
-        data: result.data,
-      });
+      if (result.data) {
+        dispatch(
+          authSuccess(
+            result.data,
+            { isError: false, isLogin: true },
+            "Login successfuly!"
+          )
+        );
+        localStorage.setItem("account", JSON.stringify(result.data));
+        history.push("/");
+      }
     } catch (err) {
-      console.log(err);
+      dispatch(authFail(err.response.data, { isLogin: false, isError: true }));
+      dispatch(authFail(err.response.data, { isLogin: false, isError: false }));
     }
+  };
+};
+
+export const logout = () => {
+  localStorage.removeItem("account");
+
+  return {
+    type: actionType.LOG_OUT,
   };
 };

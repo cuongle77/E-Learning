@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import { BiChevronDown } from "react-icons/bi";
 import { IoShareSocial, IoHeart } from "react-icons/io5";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const CourseItem = ({ item, index }) => {
   const [isShow, setIsShow] = useState(false);
@@ -21,7 +21,7 @@ const CourseItem = ({ item, index }) => {
 
   return (
     <div className="course__item">
-      <NavLink to={`/detail/${item?.maKhoaHoc}`} className="item__top">
+      <Link to={`/detail/${item?.maKhoaHoc}`} className="item__top">
         <div
           className="item__img"
           style={{ backgroundImage: `url(${item?.hinhAnh})` }}
@@ -34,7 +34,7 @@ const CourseItem = ({ item, index }) => {
             {item?.luotXem} <span>views</span>
           </p>
         </div>
-      </NavLink>
+      </Link>
       <div className="item__bottom">
         <button className="btn__using">
           <IoShareSocial className="icon__child" />

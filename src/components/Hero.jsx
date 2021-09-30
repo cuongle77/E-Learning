@@ -6,6 +6,7 @@ import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import imgSlide1 from "../assets/images/bg-hero.jpg";
 import imgSlide2 from "../assets/images/bg-hero2.jpg";
 import imgSlide3 from "../assets/images/bg-hero5.jpg";
+import { Link } from "react-router-dom";
 
 const SampleNextArrow = (props) => {
   const { onClick } = props;
@@ -83,7 +84,9 @@ const Hero = () => {
                     <p>The place where success begins.</p>
                     <span>You can find everything here</span>
                   </h2>
-                  <button className="btn btn-go">Explore</button>
+                  <Link to="/courses" className="btn btn-go">
+                    Explore
+                  </Link>
                 </div>
               </div>
             </Fragment>

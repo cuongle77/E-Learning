@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { IoShieldCheckmark } from "react-icons/io5";
 import AllCourses from "../components/AllCourses";
 import CourseSort from "../components/CourseSort";
 import FilterCategory from "../components/FilterCategory";
@@ -22,6 +23,10 @@ const Courses = () => {
     setCode("all");
     setKey(value);
   };
+
+  const totalCourse = courses?.reduce((total, course, index) => {
+    return (total = index + 1);
+  }, 0);
 
   return (
     <div className="course__all">
@@ -51,6 +56,12 @@ const Courses = () => {
         </div>
       </div>
 
+      <div className="count__course">
+        <p>
+          <IoShieldCheckmark />
+          {totalCourse} courses was found!
+        </p>
+      </div>
       <div className="courses">
         <AllCourses courses={courses} />
       </div>

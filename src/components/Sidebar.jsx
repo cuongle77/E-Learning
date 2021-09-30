@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { IoMdHome } from "react-icons/io";
-import { MdViewList } from "react-icons/md";
-import { NavLink } from "react-router-dom";
+import { FaHome, FaUsersCog } from "react-icons/fa";
+import { AiFillAppstore } from "react-icons/ai";
+import { RiFileSettingsFill } from "react-icons/ri";
+import { Link } from "react-router-dom";
 
 const Sidebar = ({ isShow }) => {
   const [active, setActive] = useState(0);
@@ -17,13 +18,23 @@ const Sidebar = ({ isShow }) => {
   let sidebarList = [
     {
       name: "Dashboard",
-      icon: IoMdHome,
+      icon: FaHome,
       path: "/",
     },
     {
       name: "Courses",
-      icon: MdViewList,
+      icon: AiFillAppstore,
       path: "/courses",
+    },
+    {
+      name: "Courses Manage",
+      icon: RiFileSettingsFill,
+      path: "/course-management",
+    },
+    {
+      name: "User Manage",
+      icon: FaUsersCog,
+      path: "/user-management",
     },
   ];
 
@@ -32,18 +43,19 @@ const Sidebar = ({ isShow }) => {
       <div className="sidebar__content">
         {sidebarList.map((item, index) => {
           return (
-            <NavLink
+            <div
               key={index}
-              to={item.path}
+              className="content__ousite-link"
               onClick={() => handleActive(index)}
-              className={
-                active === index ? "sidebar__link action" : "sidebar__link"
-              }
-              title={item.name}
             >
-              <item.icon className="sidebar__link-icon" />
-              <span>{item.name}</span>
-            </NavLink>
+              <Link
+                to={item.path}
+                className={active === index ? "link action" : "link"}
+              >
+                <item.icon className="link__icon" />
+                <span>{item.name}</span>
+              </Link>
+            </div>
           );
         })}
       </div>
