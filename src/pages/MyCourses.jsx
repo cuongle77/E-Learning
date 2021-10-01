@@ -8,7 +8,6 @@ import {
   CancellingCourseEnroll,
   fetchInfoAccountUser,
 } from "../store/actions/courses";
-import "react-toastify/dist/ReactToastify.css";
 
 const MyCourses = () => {
   const { userDetail } = useSelector((state) => state.courseReducer);

@@ -12,8 +12,8 @@ import {
   updateCourse,
 } from "../store/actions/courses";
 import DatePicker from "react-datepicker";
-
 import "react-datepicker/dist/react-datepicker.css";
+import moment from "moment";
 
 const CourseManagement = () => {
   const [group, setGroup] = useState("GP08");
@@ -23,19 +23,7 @@ const CourseManagement = () => {
   const [title, showTitle] = useState(false);
   const [customShow, setCustomShow] = useState(false);
   const [showBlockEdit, setShowBlockEdit] = useState(false);
-  const dispatch = useDispatch();
-  const { courses, tabsCategory, courseDetails } = useSelector(
-    (state) => state.courseReducer
-  );
-  const secondExample = {
-    size: 20,
-    count: 5,
-    color: "#999",
-    activeColor: "#ff8906",
-    value: 4,
-    a11y: true,
-    isHalf: true,
-  };
+  let [startDate, setStartDate] = useState(new Date());
   const [courseState, setCourseState] = useState({
     maKhoaHoc: null,
     biDanh: null,
@@ -50,6 +38,20 @@ const CourseManagement = () => {
     nguoiTao: null,
   });
 
+  const dispatch = useDispatch();
+  const { courses, tabsCategory, courseDetails } = useSelector(
+    (state) => state.courseReducer
+  );
+  const secondExample = {
+    size: 20,
+    count: 5,
+    color: "#999",
+    activeColor: "#ff8906",
+    value: 4,
+    a11y: true,
+    isHalf: true,
+  };
+
   const addCourse = (e) => {
     e.preventDefault();
     setCourseState({});
@@ -57,6 +59,7 @@ const CourseManagement = () => {
     setCustomShow(true);
     setDisable(null);
     setShowBlockEdit(true);
+    setStartDate(new Date());
   };
 
   const handleSearchCourse = (value) => {
@@ -75,7 +78,9 @@ const CourseManagement = () => {
 
   const submitCourse = (e) => {
     e.preventDefault();
-    dispatch(updateCourse(courseState));
+    !customShow
+      ? dispatch(updateCourse(courseState))
+      : console.log(courseState);
   };
 
   useEffect(() => {
@@ -246,9 +251,14 @@ const CourseManagement = () => {
                     <div className="form__field">
                       <label htmlFor="">Date picker dialog</label>
                       <DatePicker
-                        name="ngayTao"
-                        onChange={handleChange}
-                        value={courseState?.ngayTao || ""}
+                        selected={customShow ? startDate : null}
+                        onChange={(date) =>
+                          setStartDate({ ...courseState, ngayTao: date })
+                        }
+                        value={
+                          !customShow ? courseDetails?.ngayTao || "" : null
+                        }
+                        disabled={!customShow}
                         {...disable}
                       />
                     </div>

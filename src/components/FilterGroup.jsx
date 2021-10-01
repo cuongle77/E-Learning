@@ -16,6 +16,10 @@ const FilterGroup = ({ setGroup, group }) => {
       <option value="GP06">Group 6</option>
       <option value="GP07">Group 7</option>
       <option value="GP08">Group 8</option>
+      <option value="GP09">Group 9</option>
+      <option value="GP10">Group 10</option>
+      <option value="GP11">Group 11</option>
+      <option value="GP12">Group 12</option>
     </select>
   );
 };

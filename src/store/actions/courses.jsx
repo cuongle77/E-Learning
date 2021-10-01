@@ -1,6 +1,5 @@
 import * as actionType from "./actionTypes";
 import axios from "../../settings/axios";
-import "react-toastify/dist/ReactToastify.css";
 import {
   getAvailableCourseList,
   getListCourseApproval,

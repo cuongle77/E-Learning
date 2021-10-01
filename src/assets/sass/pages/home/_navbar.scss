@@ -69,8 +69,6 @@
 
         @media (max-width: 740px) {
           width: 100%;
-          margin-left: 1.5rem;
-          margin-right: 1.5rem;
         }
 
         > input {
@@ -181,10 +179,6 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-
-      @media (max-width: 740px) {
-        flex: 1;
-      }
 
       .nav__other {
         position: relative;

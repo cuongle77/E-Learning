@@ -11,10 +11,7 @@ import { MdHelpOutline } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { CourseEnroll, fetCourseDetails } from "../store/actions/courses";
 import { useSelector } from "react-redux";
-import Loading from "../components/Loading";
 import { Link } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 const CourseDetails = (props) => {
   const dataTabs = [
@@ -124,7 +121,6 @@ const CourseDetails = (props) => {
 
   return (
     <>
-      <Loading />
       <div className="course__details">
         <div className="grid">
           <div className="row" style={{ flexWrap: "wrap-reverse" }}>
@@ -290,7 +286,6 @@ const CourseDetails = (props) => {
             </div>
           </div>
         </div>
-        <ToastContainer />
       </div>
     </>
   );
