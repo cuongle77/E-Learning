@@ -13,8 +13,8 @@ This is the domain that i deployed [Open](https://leecuong2k-demo-vivi.netlify.a
   + username: mytest
   + password: 123456
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Accounts subject to change because API Public.\
+If you are still trying to access, contact me.
 
 ### `npm test`
 
