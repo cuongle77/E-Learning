@@ -16,7 +16,7 @@ This is the domain that i deployed [Open](https://leecuong2k-demo-vivi.netlify.a
 Accounts subject to change because API Public.\
 If you are still trying to access, contact me.
 
-### `npm test`
+### `Homepage Overview`
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
