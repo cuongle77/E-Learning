@@ -1,40 +1,72 @@
 import axios from "../../settings/axios";
 import * as actionType from "../actions/actionTypes";
 
+export const getUserListStart = () => {
+  return {
+    type: actionType.FETCH_USER_LIST_START,
+  };
+};
+
+export const getUserListSuccess = (userList) => {
+  return {
+    type: actionType.FETCH_USER_LIST_SUCCESS,
+    userList: userList,
+  };
+};
+
+export const getUserListFailure = (error) => {
+  return {
+    type: actionType.FETCH_USER_LIST_FAILURE,
+    error: error,
+  };
+};
+
 export const getUserList = (group) => {
   return async (dispatch) => {
     try {
+      dispatch(getUserListStart());
       let url = `/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=${group}`;
-
       const result = await axios.get(url);
 
-      dispatch({
-        type: actionType.FETCH_USER_LIST,
-        userList: result.data,
-      });
-    } catch (err) {
-      console.log(err);
+      dispatch(getUserListSuccess(result.data));
+    } catch (error) {
+      dispatch(getUserListFailure(error.response.data));
     }
+  };
+};
+
+export const searchUserListStart = () => {
+  return {
+    type: actionType.SEARCH_USER_LIST_START,
+  };
+};
+
+export const searchUserListSuccess = (userList) => {
+  return {
+    type: actionType.SEARCH_USER_LIST_SUCCESS,
+    userList: userList,
+  };
+};
+
+export const searchUserListFailure = (error) => {
+  return {
+    type: actionType.SEARCH_USER_LIST_FAILURE,
+    error: error,
   };
 };
 
 export const searchUserList = (group, keyword) => {
   return async (dispatch) => {
     try {
+      dispatch(searchUserListStart());
       let url = `/QuanLyNguoiDung/TimKiemNguoiDung?MaNhom=${group}`;
-
       if (keyword) {
         url = `/QuanLyNguoiDung/TimKiemNguoiDung?MaNhom=${group}&tuKhoa=${keyword}`;
       }
-
       const result = await axios.get(url);
-
-      dispatch({
-        type: actionType.SEARCH_USER_LIST,
-        userList: result.data,
-      });
-    } catch (err) {
-      console.log(err.response.data);
+      dispatch(searchUserListSuccess(result.data));
+    } catch (error) {
+      dispatch(searchUserListFailure(error.response.data));
     }
   };
 };
@@ -78,32 +110,52 @@ export const getListUserType = () => {
   };
 };
 
+export const getAvailableCourseListSuccess = (availableCourses) => {
+  return {
+    type: actionType.FETCH_AVAILABLE_COURSE_LIST_SUCCESS,
+    availableCourses: availableCourses,
+  };
+};
+
+export const getAvailableCourseListFailure = (error) => {
+  return {
+    type: actionType.FETCH_AVAILABLE_COURSE_LIST_FAILURE,
+    error: error,
+  };
+};
+
 export const getAvailableCourseList = (account) => {
   return async (dispatch) => {
-    const user = JSON.parse(localStorage.getItem("account"));
-
-    let url = `/QuanLyNguoiDung/LayDanhSachKhoaHocChuaGhiDanh?TaiKhoan=${account}`;
-    if (account === null) {
-      let newAccount = user.taiKhoan;
-      url = `/QuanLyNguoiDung/LayDanhSachKhoaHocChuaGhiDanh?TaiKhoan=${newAccount}`;
-    }
-
-    const headers = {
-      "Content-type": "application/json",
-      Authorization: `Bearer ${user.accessToken}`,
-    };
-
-    const result = await axios({ method: "POST", url, headers });
-
-    dispatch({
-      type: actionType.FETCH_AVAILABLE_COURSE_LIST,
-      availableCourses: result.data,
-    });
-
     try {
-    } catch (err) {
-      console.log(err.response.data);
+      const user = JSON.parse(localStorage.getItem("account"));
+      let url = `/QuanLyNguoiDung/LayDanhSachKhoaHocChuaGhiDanh?TaiKhoan=${account}`;
+      if (account === null) {
+        let newAccount = user.taiKhoan;
+        url = `/QuanLyNguoiDung/LayDanhSachKhoaHocChuaGhiDanh?TaiKhoan=${newAccount}`;
+      }
+      const headers = {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${user.accessToken}`,
+      };
+      const result = await axios({ method: "POST", url, headers });
+      dispatch(getAvailableCourseListSuccess(result.data));
+    } catch (error) {
+      dispatch(getAvailableCourseListFailure(error.response.data));
     }
+  };
+};
+
+export const courseEnrollmentSuccess = (courseEnrollment) => {
+  return {
+    type: actionType.COURSE_ENROLLMENT_SUCCESS,
+    courseEnrollment: courseEnrollment,
+  };
+};
+
+export const courseEnrollmentFailure = (error) => {
+  return {
+    type: actionType.COURSE_ENROLLMENT_FAILURE,
+    error: error,
   };
 };
 
@@ -120,19 +172,28 @@ export const courseEnrollment = (courseType, account) => {
         maKhoaHoc: courseType,
         taiKhoan: account,
       };
-
       const result = await axios({ method: "POST", url, headers, data });
-
-      dispatch({
-        type: actionType.COURSE_ENROLLMENT,
-        courseEnrollment: result.data,
-      });
+      dispatch(courseEnrollmentSuccess(result.data));
       dispatch(getAvailableCourseList(account));
       dispatch(getListCourseApproval(account));
       dispatch(getListCourseApproved(account));
-    } catch (err) {
-      console.log(err.response.data);
+    } catch (error) {
+      dispatch(courseEnrollmentFailure(error.response.data));
     }
+  };
+};
+
+export const getListCourseApprovalSuccess = (courseApproval) => {
+  return {
+    type: actionType.FETCH_LIST_COURSE_APPROVAL_SUCCESS,
+    courseApproval: courseApproval,
+  };
+};
+
+export const getListCourseApprovalFailure = (error) => {
+  return {
+    type: actionType.FETCH_LIST_COURSE_APPROVAL_FAILURE,
+    error: error,
   };
 };
 
@@ -151,13 +212,24 @@ export const getListCourseApproval = (account) => {
 
       const result = await axios({ method: "POST", url, headers, data });
 
-      dispatch({
-        type: actionType.FETCH_LIST_COURSE_APPROVAL,
-        courseApproval: result.data,
-      });
-    } catch (err) {
-      console.log(err.response.data);
+      dispatch(getListCourseApprovalSuccess(result.data));
+    } catch (error) {
+      dispatch(getListCourseApprovalFailure(error.response.data));
     }
+  };
+};
+
+export const getListCourseApprovedSuccess = (courseApproved) => {
+  return {
+    type: actionType.FETCH_LIST_COURSE_APPROVED_SUCCESS,
+    courseApproved: courseApproved,
+  };
+};
+
+export const getListCourseApprovedFailure = (error) => {
+  return {
+    type: actionType.FETCH_LIST_COURSE_APPROVED_FAILURE,
+    error: error,
   };
 };
 
@@ -173,16 +245,25 @@ export const getListCourseApproved = (account) => {
       const data = {
         taiKhoan: account,
       };
-
       const result = await axios({ method: "POST", url, headers, data });
-
-      dispatch({
-        type: actionType.FETCH_LIST_COURSE_APPROVED,
-        courseApproved: result.data,
-      });
-    } catch (err) {
-      console.log(err.response.data);
+      dispatch(getListCourseApprovedSuccess(result.data));
+    } catch (error) {
+      dispatch(getListCourseApprovedFailure(error.response.data));
     }
+  };
+};
+
+export const deleteUserSuccess = (success) => {
+  return {
+    type: actionType.DELETE_USER_SUCCESS,
+    success: success,
+  };
+};
+
+export const deleteUserFailure = (error) => {
+  return {
+    type: actionType.DELETE_USER_FAILURE,
+    error: error,
   };
 };
 
@@ -195,20 +276,14 @@ export const deleteUser = (account, group, keyword) => {
         "Content-type": "application/json",
         Authorization: `Bearer ${user.accessToken}`,
       };
-
       const data = {
         taiKhoan: account,
       };
-
       const reuslt = await axios({ method: "DELETE", url, headers, data });
-
-      dispatch({
-        type: actionType.DELETE_USER,
-        messageDelete: reuslt.data,
-      });
+      dispatch(deleteUserSuccess(reuslt?.data));
       dispatch(getUserList(group, keyword));
-    } catch (err) {
-      alert(err.response.data);
+    } catch (error) {
+      dispatch(deleteUserFailure(error.response.data));
     }
   };
 };

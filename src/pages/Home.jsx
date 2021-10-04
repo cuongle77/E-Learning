@@ -14,13 +14,15 @@ const Home = () => {
   return (
     <div className="home">
       <Navbar handleShowFullSidebar={handleShowFullSidebar} />
-      <Sidebar isShow={isShow} />
 
-      <MainWrapper className={isShow ? "main change" : "main"}>
-        <Hero />
+      <MainWrapper className="main">
+        <Sidebar isShow={isShow} />
 
-        <div className="home__wrapper">
-          <SuggestedCourse />
+        <div className="wrapper">
+          <div className="home__content">
+            <Hero />
+            <SuggestedCourse />
+          </div>
         </div>
       </MainWrapper>
     </div>

@@ -212,17 +212,14 @@
           display: inline-block;
           text-align: center;
           width: 100%;
-          border: none;
-          box-shadow: none;
           background: $flamingo;
           transition: 0.5s;
           user-select: none;
           color: $white-color;
-          outline: none;
           padding: 1.2rem;
           border-radius: 0.5rem;
-          cursor: pointer;
           text-transform: uppercase;
+          @include button__reset;
 
           &:hover {
             background: $primary-bg;

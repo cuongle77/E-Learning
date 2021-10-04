@@ -1,38 +1,110 @@
-export const FETCH_COURSES = "[course] fetchCourses";
-export const FETCH_CATEGORY = "[course] fetchCategory";
-export const FETCH_COURSE_CATEGORY = "[course] fetchCourseCategory";
-export const FETCH_CATEGORY_CODE = "[course] fetchCategoryCode";
-export const FETCH_COURSE_DETAILS = "[course] fetchCourseDetails";
-export const COURSE_ENROLLED = "[course] course_enrolled";
-export const COURSE_ENROLL_FAIL = "[course] course_enroll_fail";
-export const CANCEL_COURSE_ENROLL = "[course] cancel_course_enroll";
-export const COURSE_INFO = "[course] course_info";
-export const DELETE_COURSE = "[course] delete_course";
-export const FETCH_INFO_USER_COURSES = "[course] fetch_Info_User_Courses";
-export const FETCH_INFO_ACCOUNT_USER = "[course] fetch_Info_Account_User";
-export const SEARCH_COURSE = "[course] search_Course";
-export const SEARCH_COURSE_FAIL = "[course] search_Course_FAIL";
-export const UPDATE_COURSE = "[course-manage] update_course";
+// AUTH
+export const AUTH_START = "[auth] AUTH_START";
+export const AUTH_SUCCESS = "[auth] AUTH_SUCCESS";
+export const AUTH_FAILURE = "[auth] AUTH_FAILURE";
+export const LOG_OUT = "[auth] LOG_OUT_SUCCESS";
 
-export const SHOW_LOADER = "[loading] showLoader";
-export const HIDE_LOADER = "[loading] hideLoader";
+// COURSES
+export const FETCH_COURSES_START = "[course] FETCH_COURSES_START";
+export const FETCH_COURSES_SUCCESS = "[course] FETCH_COURSES_SUCCESS";
+export const FETCH_COURSES_FAILURE = "[course] FETCH_COURSES_FAILURE";
 
-export const AUTH_START = "[auth] auth_start";
-export const AUTH_SUCCESS = "[auth] auth_success";
-export const AUTH_FAIL = "[auth] auth_failed";
-export const LOG_OUT = "[auth_logout] log_out";
+export const SEARCH_COURSE_START = "[course] SEARCH_COURSE_START";
+export const SEARCH_COURSE_SUCCESS = "[course] SEARCH_COURSE_SUCCESS";
+export const SEARCH_COURSE_FAILURE = "[course] SEARCH_COURSE_FAILURE";
 
-export const FETCH_USER_LIST = "[user_manage] fetch_user_list";
-export const FETCH_LIST_USER_TYPE = "[user_manage] fetch_list_user_list";
-export const FETCH_AVAILABLE_COURSE_LIST =
-  "[user_manage] fetch_available_Course_List";
-export const COURSE_ENROLLMENT = "[user_manage] course_enrollment";
-export const FETCH_LIST_COURSE_APPROVAL =
-  "[user_manage] fetch_list_course_approval";
-export const FETCH_LIST_COURSE_APPROVED =
-  "[user_manage] fetch_list_course_approved";
-export const DELETE_USER = "[user_manage] delete_user";
-export const SEARCH_USER_LIST = "[user_manage] search_user_list";
-export const USER_INFO = "[user_manage] user_info";
-export const UPDATE_USER_INFO = "[user_manage] update_user_info";
-export const ADD_USER = "[user_manage] add_user";
+export const FETCH_CATEGORY_START = "[course] FETCH_CATEGORY_START";
+export const FETCH_CATEGORY_SUCCESS = "[course] FETCH_CATEGORY_SUCCESS";
+export const FETCH_CATEGORY_FAILURE = "[course] FETCH_CATEGORY_FAILURE";
+
+export const FETCH_COURSE_CATEGORY_START =
+  "[course]  FETCH_COURSE_CATEGORY_START";
+export const FETCH_COURSE_CATEGORY_SUCCESS =
+  "[course] FETCH_COURSE_CATEGORY_SUCCESS ";
+export const FETCH_COURSE_CATEGORY_FAILURE =
+  "[course] FETCH_COURSE_CATEGORY_FAILURE";
+
+export const FETCH_CATEGORY_CODE = "[course] FETCH_CATEGORY_CODE";
+
+export const FETCH_COURSE_DETAILS_START = "[course] FETCH_COURSE_DETAILS_START";
+export const FETCH_COURSE_DETAILS_SUCCESS =
+  "[course] FETCH_COURSE_DETAILS_SUCCESS";
+export const FETCH_COURSE_DETAILS_FAILURE =
+  "[course] FETCH_COURSE_DETAILS_FAILURE";
+
+export const COURSE_ENROLLED_SUCCESS = "[course] COURSE_ENROLLED_SUCCESS";
+export const COURSE_ENROLL_FAILURE = "[course] COURSE_ENROLL_FAILURE";
+
+export const CANCEL_COURSE_ENROLL_SUCCESS =
+  "[course] CANCEL_COURSE_ENROLL_SUCCESS";
+export const CANCEL_COURSE_ENROLL_FAILURE =
+  "[course]  CANCEL_COURSE_ENROLL__FAILURE";
+
+export const FETCH_INFO_ACCOUNT_USER_SUCCESS =
+  "[course] FETCH_INFO_ACCOUNT_USER_SUCCESS";
+export const FETCH_INFO_ACCOUNT_USER_FAILURE =
+  "[course] FETCH_INFO_ACCOUNT_USER_FAILURE";
+
+export const FETCH_COURSES_LIST_START =
+  "[course_manage] FETCH_COURSES_LIST_START";
+export const FETCH_COURSES_LIST_SUCCESS =
+  "[course_manage] FETCH_COURSES_LIST_SUCCESS";
+export const FETCH_COURSES_LIST_FAILURE =
+  "[course_manage] FETCH_COURSES_LIST_FAILURE";
+
+export const DELETE_COURSE_SUCCESS = "[course_manage] DELETE_COURSE_SUCCESS";
+export const DELETE_COURSE_FAILURE = "[course_manage] DELETE_COURSE_FAILURE";
+
+export const COURSE_INFO = "[course_manage] COURSE_INFO";
+
+export const FETCH_INFO_USER_COURSES_SUCCESS =
+  "[course] FETCH_INFO_USER_COURSES_SUCCESS";
+export const FETCH_INFO_USER_COURSES_FAILURE =
+  "[course] FETCH_INFO_USER_COURSES_FAILURE";
+
+export const UPDATE_COURSE = "[course-manage] UPDATE_COURSE";
+
+// USERS
+export const FETCH_USER_LIST_START = "[user_manage] FETCH_USER_LIST_START";
+export const FETCH_USER_LIST_SUCCESS = "[user_manage] FETCH_USER_LIST_SUCCESS";
+export const FETCH_USER_LIST_FAILURE = "[user_manage] FETCH_USER_LIST_FAILURE";
+
+export const SEARCH_USER_LIST_START = "[user_manage] SEARCH_USER_LIST_START";
+export const SEARCH_USER_LIST_SUCCESS =
+  "[user_manage] SEARCH_USER_LIST_SUCCESS";
+export const SEARCH_USER_LIST_FAILURE =
+  "[user_manage] SEARCH_USER_LIST_FAILURE";
+
+export const FETCH_LIST_USER_TYPE = "[user_manage] FETCH_LIST_USER_TYPE";
+
+export const FETCH_AVAILABLE_COURSE_LIST_SUCCESS =
+  "[user_manage] FETCH_AVAILABLE_COURSE_LIST_SUCCESS";
+export const FETCH_AVAILABLE_COURSE_LIST_FAILURE =
+  "[user_manage] FETCH_AVAILABLE_COURSE_LIST_FAILURE";
+
+export const COURSE_ENROLLMENT_SUCCESS =
+  "[user_manage] COURSE_ENROLLMENT_SUCCESS";
+export const COURSE_ENROLLMENT_FAILURE =
+  "[user_manage] COURSE_ENROLLMENT_FAILURE";
+
+export const FETCH_LIST_COURSE_APPROVAL_SUCCESS =
+  "[user_manage] FETCH_LIST_COURSE_APPROVAL_SUCCESS";
+export const FETCH_LIST_COURSE_APPROVAL_FAILURE =
+  "[user_manage] FETCH_LIST_COURSE_APPROVAL_FAILURE";
+
+export const FETCH_LIST_COURSE_APPROVED_SUCCESS =
+  "[user_manage] FETCH_LIST_COURSE_APPROVED_SUCCESS";
+export const FETCH_LIST_COURSE_APPROVED_FAILURE =
+  "[user_manage] FETCH_LIST_COURSE_APPROVED_FAILURE";
+
+export const DELETE_USER_SUCCESS = "[user_manage] DELETE_USER_SUCCESS";
+export const DELETE_USER_FAILURE = "[user_manage] DELETE_USER_FAILURE";
+
+export const USER_INFO = "[user_manage] USER_INFO";
+
+export const UPDATE_USER_INFO = "[user_manage] UPDATE_USER_INFO";
+
+export const ADD_USER = "[user_manage] ADD_USER";
+
+export const CHOOSE_COURSE_TYPE = "[filter] CHOOSE_COURSE_TYPE";
+export const CHOOSE_GROUP = "[filter] CHOOSE_GROUP";

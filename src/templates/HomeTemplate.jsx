@@ -18,9 +18,13 @@ const HomeTemplate = (props) => {
         return (
           <>
             <Navbar handleShowFullSidebar={handleShowFullSidebar} />
-            <Sidebar isShow={isShow} />
-            <MainWrapper className={isShow ? "main change" : "main"}>
-              <Component {...propsRoute} />
+            <MainWrapper className="main">
+              <Sidebar isShow={isShow} />
+              <div className="wrapper">
+                <div className="home__content">
+                  <Component {...propsRoute} />
+                </div>
+              </div>
             </MainWrapper>
           </>
         );

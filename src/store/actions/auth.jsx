@@ -9,7 +9,7 @@ export const authStart = () => {
 
 export const authFail = (error, { isLogin, isError }) => {
   return {
-    type: actionType.AUTH_FAIL,
+    type: actionType.AUTH_FAILURE,
     error: error,
     isLogin: isLogin,
     isError: isError,

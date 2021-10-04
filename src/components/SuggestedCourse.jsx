@@ -1,33 +1,21 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import CountUp from "react-countup";
-import * as actionType from "../store/actions/actionTypes";
+
 import { GiTv } from "react-icons/gi";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCategory, fetCourseCategory } from "../store/actions/courses";
+import { fetCourseCategory } from "../store/actions/courses";
 import CourseItem from "./CourseItem";
+import LoadingSmall from "./LoadingSmall";
+import TabCategory from "./TabCategory";
 
 const SuggestedCourse = () => {
-  const [indexTab, setIndexTab] = useState(0);
   const group = "GP08";
   const dispatch = useDispatch();
-  const { tabsCategory, courseCategory, categoryCode } = useSelector(
+  const { courseCategory, categoryCode, loading } = useSelector(
     (state) => state.courseReducer
   );
 
-  const handleTabs = useCallback(
-    (item, index) => {
-      dispatch({
-        categoryCode: item,
-        type: actionType.FETCH_CATEGORY_CODE,
-      });
-      setIndexTab(index);
-    },
-
-    [dispatch]
-  );
-
   useEffect(() => {
-    dispatch(fetchCategory());
     dispatch(fetCourseCategory(categoryCode, group));
   }, [dispatch, categoryCode, group]);
 
@@ -63,33 +51,27 @@ const SuggestedCourse = () => {
           </p>
         </div>
 
-        <div className="typical__course-detail">
-          {tabsCategory?.map((item, index) => {
-            return (
-              <button
-                key={index}
-                className={indexTab === index ? "tab__btn current" : "tab__btn"}
-                onClick={() => handleTabs(item.maDanhMuc, index)}
-              >
-                {item.tenDanhMuc}
-              </button>
-            );
-          })}
-        </div>
+        <TabCategory />
 
-        <div className="course__list">
-          <div className="grid wide">
-            <div className="row" style={{ justifyContent: "center" }}>
-              {courseCategory?.map((item, index) => {
-                return (
-                  <div key={index} className="col l-2">
-                    <CourseItem item={item} index={index} />
-                  </div>
-                );
-              })}
+        {loading ? (
+          <LoadingSmall />
+        ) : (
+          <>
+            <div className="course__list">
+              <div className="grid wide">
+                <div className="row" style={{ justifyContent: "center" }}>
+                  {courseCategory?.map((item, index) => {
+                    return (
+                      <div key={index} className="col l-2">
+                        <CourseItem item={item} index={index} />
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          </>
+        )}
       </div>
     </div>
   );

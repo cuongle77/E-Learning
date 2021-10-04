@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { fetchCourses } from "../store/actions/courses";
+import * as actionType from "../store/actions/actionTypes";
+import { searchUserList } from "../store/actions/user-manage";
 
-const FilterGroup = ({ setGroup, group }) => {
+const FilterGroup = ({ setGroup, group, code, key, isPageUserManage }) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    isPageUserManage
+      ? dispatch(searchUserList(group, null))
+      : dispatch(fetchCourses(code, group, key));
+  }, [dispatch, group, code, key, isPageUserManage]);
+
   return (
     <select
-      name=""
-      id=""
-      onChange={(e) => setGroup(e.target.value)}
+      onChange={(e) => {
+        setGroup(e.target.value);
+        dispatch({ type: actionType.CHOOSE_GROUP });
+      }}
       value={group}
     >
       <option value="GP01">Group 1</option>

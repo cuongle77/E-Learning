@@ -260,16 +260,12 @@
     &-right {
       width: 100%;
       border-radius: 0.5rem;
-      box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3),
-        0 1px 3px 1px rgba(60, 64, 67, 0.15);
       padding: 1.5rem;
+      @include box__shadow;
       overflow-y: hidden;
 
-      transition: box-shadow 0.3s ease;
-
       &:hover {
-        box-shadow: 0 1px 3px 0 rgba(60, 64, 67, 0.3),
-          0 4px 8px 3px rgba(60, 64, 67, 0.15);
+        @include box__shadow-hover;
       }
 
       > h4 {

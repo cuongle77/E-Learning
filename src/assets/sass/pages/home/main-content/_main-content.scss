@@ -1,20 +1,19 @@
 .main {
-  --spacing: 4rem;
-  margin-top: $height-nav + 2rem;
-  margin-left: $width-sidebar;
-  padding-left: var(--spacing);
-  padding-right: var(--spacing);
-  transition: 0.25s ease-in-out;
+  --spacing: 3rem;
+  display: flex;
+  margin-top: $height-nav;
 
-  .home__wrapper {
-    margin-top: var(--spacing);
-    margin-left: var(--spacing);
-    margin-right: var(--spacing);
+  .wrapper {
+    max-width: calc(100% - #{$width-sidebar});
+    flex: 1;
+    padding: 1.5rem var(--spacing);
+    overflow: hidden;
+
+    .home__content {
+      width: 100%;
+      margin: 0 auto;
+    }
   }
-}
-
-.main.change {
-  margin-left: $width-sidebar-change;
 }
 
 @import "./hero";

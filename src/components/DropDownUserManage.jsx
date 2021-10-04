@@ -2,17 +2,25 @@ import React, { useState } from "react";
 import { CgRemove } from "react-icons/cg";
 import { BiChevronDown } from "react-icons/bi";
 import { AiFillLike, AiFillFolder } from "react-icons/ai";
+import LoadingSmall from "../components/LoadingSmall";
+import { useDispatch, useSelector } from "react-redux";
+import { courseEnrollment } from "../store/actions/user-manage";
+import { CancellingCourseEnroll } from "../store/actions/courses";
 
 const DropDownUserManage = (props) => {
-  const {
-    title,
-    description,
-    data,
-    enrollHandler,
-    handleCancelCourse,
-    indexParent,
-  } = props;
+  const { title, description, data, infoUser, indexParent } = props;
   const [showCourseList, setShowCourseList] = useState(false);
+  const { loading } = useSelector((state) => state.userManagementReducer);
+  const dispatch = useDispatch();
+
+  const enrollHandler = (courseType, account = infoUser?.taiKhoan) => {
+    dispatch(courseEnrollment(courseType, account));
+  };
+
+  const handleCancelCourse = (codeCourrse, account = infoUser?.taiKhoan) => {
+    dispatch(CancellingCourseEnroll(codeCourrse, account));
+  };
+
   const handleShowCourseList = () => {
     return !showCourseList ? setShowCourseList(true) : setShowCourseList(false);
   };
@@ -43,41 +51,45 @@ const DropDownUserManage = (props) => {
               }
         }
       >
-        {data?.map((course, index) => {
-          return (
-            <li key={index}>
-              <AiFillFolder />
-              <p>{course?.tenKhoaHoc}</p>
-              {indexParent === 1 ? (
-                <>
-                  <button onClick={() => enrollHandler(course?.maKhoaHoc)}>
-                    <AiFillLike />
-                  </button>
+        {loading ? (
+          <LoadingSmall />
+        ) : (
+          data?.map((course, index) => {
+            return (
+              <li key={index}>
+                <AiFillFolder />
+                <p>{course?.tenKhoaHoc}</p>
+                {indexParent === 1 ? (
+                  <>
+                    <button onClick={() => enrollHandler(course?.maKhoaHoc)}>
+                      <AiFillLike />
+                    </button>
 
+                    <button>
+                      <CgRemove
+                        onClick={() => handleCancelCourse(course?.maKhoaHoc)}
+                      />
+                    </button>
+                  </>
+                ) : null}
+
+                {indexParent === 2 ? (
                   <button>
                     <CgRemove
                       onClick={() => handleCancelCourse(course?.maKhoaHoc)}
                     />
                   </button>
-                </>
-              ) : null}
+                ) : null}
 
-              {indexParent === 2 ? (
-                <button>
-                  <CgRemove
-                    onClick={() => handleCancelCourse(course?.maKhoaHoc)}
-                  />
-                </button>
-              ) : null}
-
-              {indexParent === 3 ? (
-                <button onClick={() => enrollHandler(course?.maKhoaHoc)}>
-                  <AiFillLike />
-                </button>
-              ) : null}
-            </li>
-          );
-        })}
+                {indexParent === 3 ? (
+                  <button onClick={() => enrollHandler(course?.maKhoaHoc)}>
+                    <AiFillLike />
+                  </button>
+                ) : null}
+              </li>
+            );
+          })
+        )}
       </ul>
     </div>
   );

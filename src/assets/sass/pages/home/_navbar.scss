@@ -30,12 +30,15 @@
         font-size: 2.5rem;
         color: $black-color;
         cursor: pointer;
+        display: none;
+
+        @media (max-width: 740px) {
+          display: block;
+        }
       }
 
       .nav__logo-link {
         display: block;
-        padding: 1rem 0;
-        margin: 0 1.5rem;
 
         @media (max-width: 740px) {
           display: none;
@@ -43,6 +46,7 @@
 
         > img {
           display: block;
+          width: 50%;
           max-width: 100%;
           height: auto;
         }
@@ -77,6 +81,7 @@
           outline: none;
           box-shadow: none;
           height: 100%;
+          background-color: transparent;
           padding: 0 1rem;
           flex: 1;
           caret-color: $primary-bg;

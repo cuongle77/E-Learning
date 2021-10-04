@@ -5,15 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import CourseItemManage from "../components/CourseItemManage";
 import FilterCategory from "../components/FilterCategory";
 import FilterGroup from "../components/FilterGroup";
-import {
-  fetchCategory,
-  fetchCourses,
-  fetCourseDetails,
-  updateCourse,
-} from "../store/actions/courses";
+import { fetCourseDetails } from "../store/actions/courses";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import moment from "moment";
+import LoadingSmall from "../components/LoadingSmall";
+import { fetchCourseList } from "../store/actions/course-manage";
 
 const CourseManagement = () => {
   const [group, setGroup] = useState("GP08");
@@ -37,11 +33,14 @@ const CourseManagement = () => {
     ngayTao: new Date(),
     nguoiTao: null,
   });
-
   const dispatch = useDispatch();
-  const { courses, tabsCategory, courseDetails } = useSelector(
+  const { tabsCategory, courseDetails } = useSelector(
     (state) => state.courseReducer
   );
+  const { courseList, loading } = useSelector(
+    (state) => state.courseManagementReducer
+  );
+
   const secondExample = {
     size: 20,
     count: 5,
@@ -69,7 +68,6 @@ const CourseManagement = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     setCourseState({
       ...courseState,
       [name]: value,
@@ -78,15 +76,11 @@ const CourseManagement = () => {
 
   const submitCourse = (e) => {
     e.preventDefault();
-    !customShow
-      ? dispatch(updateCourse(courseState))
-      : console.log(courseState);
   };
 
-  useEffect(() => {
-    dispatch(fetchCourses(code, group, key));
-    dispatch(fetchCategory());
-  }, [dispatch, group, code, key]);
+  const totalCourse = courseList?.reduce((total, course, index) => {
+    return (total = index + 1);
+  }, 0);
 
   useEffect(() => {
     setCourseState({
@@ -104,9 +98,9 @@ const CourseManagement = () => {
     });
   }, [courseDetails]);
 
-  const totalCourse = courses?.reduce((total, course, index) => {
-    return (total = index + 1);
-  }, 0);
+  useEffect(() => {
+    dispatch(fetchCourseList(code, group, key));
+  }, [dispatch, code, group, key]);
 
   return (
     <div className="course__management">
@@ -119,10 +113,14 @@ const CourseManagement = () => {
                   <button className="icon__add" onClick={addCourse} title="Add">
                     <IoAddSharp />
                   </button>
-                  <p>
-                    <IoShieldCheckmark />
-                    {totalCourse} courses was found!
-                  </p>
+
+                  {loading ? null : (
+                    <p>
+                      <IoShieldCheckmark />
+                      {totalCourse} courses was found!
+                    </p>
+                  )}
+
                   <div className="filter">
                     <div className="item filter__category">
                       <FilterCategory
@@ -132,7 +130,12 @@ const CourseManagement = () => {
                       />
                     </div>
                     <div className="item filter__group">
-                      <FilterGroup setGroup={setGroup} group={group} />
+                      <FilterGroup
+                        setGroup={setGroup}
+                        group={group}
+                        code={code}
+                        key={key}
+                      />
                     </div>
                   </div>
                 </div>
@@ -145,25 +148,29 @@ const CourseManagement = () => {
                 </div>
               </div>
               <div className="course__render">
-                <div className="course__render-content">
-                  {courses?.map((course, index) => {
-                    return (
-                      <div key={index} className="course__wrap">
-                        <CourseItemManage
-                          group={group}
-                          code={code}
-                          setDisable={setDisable}
-                          showTitle={showTitle}
-                          setCustomShow={setCustomShow}
-                          setShowBlockEdit={setShowBlockEdit}
-                          course={course}
-                          dispatch={dispatch}
-                          fetCourseDetails={fetCourseDetails}
-                        />
-                      </div>
-                    );
-                  })}
-                </div>
+                {loading ? (
+                  <LoadingSmall />
+                ) : (
+                  <div className="course__render-content">
+                    {courseList?.map((course, index) => {
+                      return (
+                        <div key={index} className="course__wrap">
+                          <CourseItemManage
+                            group={group}
+                            code={code}
+                            setDisable={setDisable}
+                            showTitle={showTitle}
+                            setCustomShow={setCustomShow}
+                            setShowBlockEdit={setShowBlockEdit}
+                            course={course}
+                            dispatch={dispatch}
+                            fetCourseDetails={fetCourseDetails}
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -256,9 +263,9 @@ const CourseManagement = () => {
                           setStartDate({ ...courseState, ngayTao: date })
                         }
                         value={
-                          !customShow ? courseDetails?.ngayTao || "" : null
+                          !customShow ? courseDetails?.ngayTao || "" : startDate
                         }
-                        disabled={!customShow}
+                        disabled={!customShow || title}
                         {...disable}
                       />
                     </div>
@@ -284,16 +291,23 @@ const CourseManagement = () => {
                       {...disable}
                     >
                       <option value="all">All Topic</option>
+                      <option value="BackEnd">Lập trình Backend</option>
+                      <option value="Design">Thiết kế Web</option>
+                      <option value="DiDong">Lập trình di động</option>
+                      <option value="FrontEnd">Lập trình Front end</option>
+                      <option value="FullStack">Lập trình Full Stack</option>
+                      <option value="TuDuy">Tư duy lập trình</option>
 
-                      {tabsCategory?.map((item, index) => {
+                      {/* {tabsCategory?.map((item, index) => {
                         return (
                           <option key={index} value={item.maDanhMuc}>
                             {item.tenDanhMuc}
                           </option>
                         );
-                      })}
+                      })} */}
                     </select>
                   </div>
+
                   <div className="item">
                     <select
                       name="maNhom"

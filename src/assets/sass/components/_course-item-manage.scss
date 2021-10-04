@@ -1,9 +1,13 @@
 .course__item-manage {
   --spacing: 1.2rem;
   border-radius: 0.5rem;
-  box-shadow: 0px 3px 6px rgba($black-color, $alpha: 0.16);
   overflow: hidden;
   margin-bottom: 2.4rem;
+  @include box__shadow;
+
+  &:hover {
+    @include box__shadow-hover;
+  }
 
   .item__top {
     cursor: pointer;
@@ -51,12 +55,9 @@
     justify-content: space-between;
 
     > .btn__using {
-      box-shadow: none;
-      outline: none;
       background-color: transparent;
-      border: none;
       padding: 0;
-      cursor: pointer;
+      @include button__reset;
 
       > svg {
         font-size: 2.5rem;

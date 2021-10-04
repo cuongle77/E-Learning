@@ -23,7 +23,7 @@ export const authReducer = (state = initialState, action) => {
       };
     }
 
-    case actionType.AUTH_FAIL: {
+    case actionType.AUTH_FAILURE: {
       return {
         ...state,
         isLogin: action.isLogin,

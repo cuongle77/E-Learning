@@ -6,42 +6,72 @@ import {
   getListCourseApproved,
 } from "./user-manage";
 
+export const fetchCourseStart = () => {
+  return {
+    type: actionType.FETCH_COURSES_START,
+  };
+};
+
+export const fetchCourseSuccess = (courses) => {
+  return {
+    type: actionType.FETCH_COURSES_SUCCESS,
+    courses: courses,
+  };
+};
+
+export const fetchCourseFail = (error) => {
+  return {
+    type: actionType.FETCH_COURSES_FAILURE,
+    error: error,
+  };
+};
+
 export const fetchCourses = (courseType, groupCode, keyword) => {
   return async (dispatch) => {
     try {
+      dispatch(fetchCourseStart());
       let url = `/QuanLyKhoaHoc/LayKhoaHocTheoDanhMuc?maDanhMuc=${courseType}&MaNhom=${groupCode}`;
-
       if (courseType === "all") {
         url = `/QuanLyKhoaHoc/LayDanhSachKhoaHoc?MaNhom=${groupCode}`;
       }
-
       if (keyword) {
         url = `/QuanLyKhoaHoc/LayDanhSachKhoaHoc?tenKhoaHoc=${keyword}&MaNhom=${groupCode}`;
       }
 
       const result = await axios.get(url);
 
-      dispatch({
-        type: actionType.FETCH_COURSES,
-        courses: result.data,
-      });
-      showLoader(true);
+      dispatch(fetchCourseSuccess(result?.data));
     } catch (error) {
-      console.log(error);
+      dispatch(fetchCourseFail(error.response?.data));
     }
   };
 };
 
-export const searchCourseFail = (err) => {
+export const searchCourseStart = () => {
   return {
-    type: actionType.SEARCH_COURSE_FAIL,
-    err: err,
+    type: actionType.SEARCH_COURSE_START,
+  };
+};
+
+export const searchCourseSuccess = (courseSearch) => {
+  return {
+    type: actionType.SEARCH_COURSE_SUCCESS,
+    courseSearch: courseSearch,
+  };
+};
+
+export const searchCourseFail = (error) => {
+  return {
+    type: actionType.SEARCH_COURSE_FAILURE,
+    error: error,
   };
 };
 
 export const searchCourses = (courseName, group) => {
   return async (dispatch) => {
     try {
+      dispatch(searchCourseStart());
+
       let url = `/QuanLyKhoaHoc/LayDanhSachKhoaHoc?tenKhoaHoc=${courseName}&MaNhom=${group}`;
       if (group === null) {
         let newGroup = "GP08";
@@ -50,119 +80,127 @@ export const searchCourses = (courseName, group) => {
 
       const result = await axios.get(url);
 
-      dispatch({
-        type: actionType.SEARCH_COURSE,
-        courseSearch: result.data,
-      });
-      dispatch(fetchCourses());
+      dispatch(searchCourseSuccess(result?.data));
     } catch (err) {
-      dispatch(searchCourseFail(err.response.data));
+      dispatch(searchCourseFail(err.response?.data));
     }
+  };
+};
+
+export const fetchCategoryStart = () => {
+  return {
+    type: actionType.FETCH_CATEGORY_START,
+  };
+};
+
+export const fetchCategorySuccess = (tabsCategory) => {
+  return {
+    type: actionType.FETCH_CATEGORY_SUCCESS,
+    tabsCategory: tabsCategory,
+  };
+};
+
+export const fetchCategoryFail = (error) => {
+  return {
+    type: actionType.FETCH_CATEGORY_FAILURE,
+    error: error,
   };
 };
 
 export const fetchCategory = () => {
   return async (dispatch) => {
     try {
+      dispatch(fetchCategoryStart());
       const result = await axios.get("/QuanLyKhoaHoc/LayDanhMucKhoaHoc");
 
-      dispatch({
-        tabsCategory: result.data,
-        type: actionType.FETCH_CATEGORY,
-      });
+      dispatch(fetchCategorySuccess(result?.data));
     } catch (error) {
-      console.log(error);
+      dispatch(fetchCategoryFail(error.response?.data));
     }
+  };
+};
+
+export const fetCourseCategoryStart = () => {
+  return {
+    type: actionType.FETCH_COURSE_CATEGORY_START,
+  };
+};
+
+export const fetCourseCategorySuccess = (courseCategory) => {
+  return {
+    type: actionType.FETCH_COURSE_CATEGORY_SUCCESS,
+    courseCategory: courseCategory,
+  };
+};
+
+export const fetCourseCategoryFail = (error) => {
+  return {
+    type: actionType.FETCH_COURSE_CATEGORY_FAILURE,
+    error: error,
   };
 };
 
 export const fetCourseCategory = (categoryCode, groupCode) => {
   return async (dispatch) => {
     try {
+      dispatch(fetCourseCategoryStart());
       const result = await axios.get(
         `/QuanLyKhoaHoc/LayKhoaHocTheoDanhMuc?maDanhMuc=${categoryCode}&MaNhom=${groupCode}`
       );
 
-      dispatch({
-        courseCategory: result.data,
-        type: actionType.FETCH_COURSE_CATEGORY,
-      });
+      dispatch(fetCourseCategorySuccess(result?.data));
     } catch (error) {
-      console.log(error);
+      dispatch(fetCourseCategoryFail(error.response?.data));
     }
+  };
+};
+
+export const fetchCourseDetailsStart = () => {
+  return {
+    type: actionType.FETCH_COURSE_DETAILS_START,
+  };
+};
+
+export const fetchCourseDetailsSuccess = (courseDetails) => {
+  return {
+    type: actionType.FETCH_COURSE_DETAILS_SUCCESS,
+    courseDetails: courseDetails,
+  };
+};
+
+export const fetchCourseDetailsFail = (error) => {
+  return {
+    type: actionType.FETCH_COURSE_DETAILS_FAILURE,
+    error: error,
   };
 };
 
 export const fetCourseDetails = (courseCode) => {
   return async (dispatch) => {
     try {
+      dispatch(fetchCourseDetailsStart());
       const result = await axios.get(
         `/QuanLyKhoaHoc/LayThongTinKhoaHoc?maKhoaHoc=${courseCode}`
       );
-
-      dispatch({
-        courseDetails: result.data,
-        type: actionType.FETCH_COURSE_DETAILS,
-      });
+      dispatch(fetchCourseDetailsSuccess(result?.data));
+      dispatch(fetchInfoUserCourses(courseCode));
     } catch (error) {
-      console.log(error);
+      dispatch(fetchCourseDetailsFail(error.response?.data));
     }
   };
 };
 
-export const showLoader = (status) => ({
-  type: actionType.SHOW_LOADER,
-  status,
-});
-
-export const hideLoader = (status) => ({
-  type: actionType.HIDE_LOADER,
-  status,
-});
-
-export const fetchInfoUserCourses = (courseId) => {
-  return async (dispatch) => {
-    try {
-      const user = JSON.parse(localStorage.getItem("account"));
-      const url = `/QuanLyKhoaHoc/LayThongTinHocVienKhoaHoc?maKhoaHoc=${courseId}`;
-      const headers = {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${user.accessToken}`,
-      };
-      const result = await axios({ method: "GET", url, headers });
-
-      dispatch({
-        type: actionType.FETCH_INFO_USER_COURSES,
-        userCourse: result.data,
-      });
-    } catch (err) {
-      console.log(err.response.data);
-    }
+export const CourseEnrollSuccess = (success) => {
+  return {
+    type: actionType.COURSE_ENROLLED_SUCCESS,
+    success: success,
   };
 };
 
-export const fetchInfoAccountUser = () => {
-  return async (dispatch) => {
-    try {
-      const user = JSON.parse(localStorage.getItem("account"));
-      const url = "/QuanLyNguoiDung/ThongTinTaiKhoan";
-      const headers = {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${user.accessToken}`,
-      };
-      const data = {
-        taiKhoan: user?.taiKhoan,
-      };
-
-      const result = await axios({ method: "POST", url, headers, data });
-
-      dispatch({
-        type: actionType.FETCH_INFO_ACCOUNT_USER,
-        userDetail: result.data,
-      });
-    } catch (err) {
-      console.log(err.response.data);
-    }
+export const CourseEnrollFailure = (error) => {
+  return {
+    type: actionType.COURSE_ENROLL_FAILURE,
+    error: error,
   };
 };
 
@@ -182,17 +220,25 @@ export const CourseEnroll = (courseCode, account) => {
 
       const result = await axios({ method: "POST", url, headers, data });
 
-      dispatch({
-        type: actionType.COURSE_ENROLLED,
-        success: result.data,
-      });
-      dispatch(fetchInfoUserCourses(courseCode));
-    } catch (err) {
-      dispatch({
-        type: actionType.COURSE_ENROLL_FAIL,
-        err: err.response.data,
-      });
+      dispatch(CourseEnrollSuccess(result?.data));
+      // dispatch(fetchInfoUserCourses(courseCode));
+    } catch (error) {
+      dispatch(CourseEnrollFailure(error.response?.data));
     }
+  };
+};
+
+export const CancellingCourseEnrollSuccess = (success) => {
+  return {
+    type: actionType.CANCEL_COURSE_ENROLL_SUCCESS,
+    success: success,
+  };
+};
+
+export const CancellingCourseEnrollFailure = (error) => {
+  return {
+    type: actionType.CANCEL_COURSE_ENROLL_SUCCESS,
+    error: error,
   };
 };
 
@@ -212,78 +258,81 @@ export const CancellingCourseEnroll = (courseCode, account) => {
 
       const result = await axios({ method: "POST", url, headers, data });
 
-      dispatch({
-        type: actionType.CANCEL_COURSE_ENROLL,
-        messageCancelCourse: result.data,
-      });
-
+      dispatch(CancellingCourseEnrollSuccess(result?.data));
       dispatch(fetchInfoAccountUser());
       dispatch(getListCourseApproved(account));
       dispatch(getAvailableCourseList(account));
       dispatch(getListCourseApproval(account));
-    } catch (err) {
-      console.log(err.response.data);
+    } catch (error) {
+      dispatch(CancellingCourseEnrollFailure(error.response?.data));
     }
   };
 };
 
-export const deleteCourseAction = (
-  courseCode,
-  keyword,
-  groupCode,
-  courseType
-) => {
+export const fetchInfoAccountUserSuccess = (userDetail) => {
+  return {
+    type: actionType.FETCH_INFO_ACCOUNT_USER_SUCCESS,
+    userDetail: userDetail,
+  };
+};
+
+export const fetchInfoAccountUserFailure = (error) => {
+  return {
+    type: actionType.FETCH_INFO_ACCOUNT_USER_SUCCESS,
+    error: error,
+  };
+};
+
+export const fetchInfoAccountUser = () => {
   return async (dispatch) => {
     try {
-      let url = `/QuanLyKhoaHoc/XoaKhoaHoc?MaKhoaHoc=${courseCode}`;
-      let user = JSON.parse(localStorage.getItem("account"));
-      let headers = {
+      const user = JSON.parse(localStorage.getItem("account"));
+      const url = "/QuanLyNguoiDung/ThongTinTaiKhoan";
+      const headers = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${user.accessToken}`,
       };
+      const data = {
+        taiKhoan: user?.taiKhoan,
+      };
 
-      const result = await axios({ method: "DELETE", url, headers });
+      const result = await axios({ method: "POST", url, headers, data });
 
-      dispatch({
-        type: actionType.DELETE_COURSE,
-        data: result,
-      });
-
-      dispatch(fetchCourses(courseType, groupCode, keyword));
-    } catch (err) {
-      alert(err.response.data);
+      dispatch(fetchInfoAccountUserSuccess(result?.data));
+    } catch (error) {
+      dispatch(fetchInfoAccountUserFailure(error.response?.data));
     }
   };
 };
 
-export const updateCourse = (courseDetail) => {
+export const fetchInfoUserCoursesSuccess = (userCourse) => {
+  return {
+    type: actionType.FETCH_INFO_USER_COURSES_SUCCESS,
+    userCourse: userCourse,
+  };
+};
+
+export const fetchInfoUserCoursesFailure = (error) => {
+  return {
+    type: actionType.FETCH_INFO_USER_COURSES_FAILURE,
+    error: error,
+  };
+};
+
+export const fetchInfoUserCourses = (courseId) => {
   return async (dispatch) => {
     try {
-      let url = "/QuanLyKhoaHoc/CapNhatKhoaHoc";
-      const data = {
-        maKhoaHoc: courseDetail.maKhoaHoc,
-        biDanh: courseDetail.biDanh,
-        tenKhoaHoc: courseDetail.tenKhoaHoc,
-        moTa: courseDetail.moTa,
-        luotXem: courseDetail.luotXem,
-        danhGia: 0,
-        hinhAnh: courseDetail.hinhAnh,
-        maNhom: courseDetail.maNhom,
-        ngayTao: courseDetail.ngayTao,
-        maDanhMucKhoahoc: courseDetail.maDanhMucKhoahoc,
-        taiKhoanNguoiTao: courseDetail.taiKhoanNguoiTao,
+      const user = JSON.parse(localStorage.getItem("account"));
+      const url = `/QuanLyKhoaHoc/LayThongTinHocVienKhoaHoc?maKhoaHoc=${courseId}`;
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.accessToken}`,
       };
+      const result = await axios({ method: "GET", url, headers });
 
-      const result = await axios({ method: "PUT", url, data });
-
-      dispatch({
-        type: actionType.UPDATE_COURSE,
-        updateCourse: result.data,
-      });
-
-      dispatch(fetchCourses(data.maDanhMucKhoahoc, data.maNhom, null));
-    } catch (err) {
-      alert(err.response.data);
+      dispatch(fetchInfoAccountUserSuccess(result?.data));
+    } catch (error) {
+      dispatch(fetchInfoUserCoursesFailure(error.response?.data));
     }
   };
 };

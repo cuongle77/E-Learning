@@ -1,4 +1,6 @@
 .course__demo {
+  margin-top: 5rem;
+  padding: 0 3rem;
   .num__courses {
     display: flex;
     align-items: center;
@@ -46,23 +48,6 @@
       > p {
         font-size: 1.48rem;
         font-weight: 300;
-      }
-    }
-
-    &-detail {
-      --column: 6;
-      --spacing: 1.5rem;
-      width: 100%;
-      border-bottom: 1px solid $gallery;
-      position: relative;
-
-      .tab__btn {
-        width: calc(100% / var(--column));
-        @include tab__item;
-      }
-
-      .tab__btn.current {
-        @include tabActive;
       }
     }
   }

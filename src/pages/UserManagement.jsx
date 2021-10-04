@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IoAddSharp, IoShieldCheckmark } from "react-icons/io5";
 import { IoMdTrash } from "react-icons/io";
 import { MdEdit } from "react-icons/md";
 import { FaUserAlt } from "react-icons/fa";
 import FilterGroup from "../components/FilterGroup";
+import LoadingSmall from "../components/LoadingSmall";
 import {
-  // getUserList,
   getListUserType,
   getAvailableCourseList,
-  courseEnrollment,
   getListCourseApproval,
   getListCourseApproved,
   deleteUser,
@@ -18,7 +17,6 @@ import {
   addUserMange,
 } from "../store/actions/user-manage";
 import DropDownUserManage from "../components/DropDownUserManage";
-import { CancellingCourseEnroll } from "../store/actions/courses";
 
 const UserManagement = () => {
   const [group, setGroup] = useState("GP08");
@@ -45,6 +43,7 @@ const UserManagement = () => {
     courseApproval,
     courseApproved,
     availableCourses,
+    loading,
   } = useSelector((state) => state.userManagementReducer);
 
   const handleChange = (e) => {
@@ -58,10 +57,6 @@ const UserManagement = () => {
       ...infoUser,
       [name]: value,
     });
-  };
-
-  const enrollHandler = (courseType, account = infoUser?.taiKhoan) => {
-    dispatch(courseEnrollment(courseType, account));
   };
 
   const viewUserHandler = (user, index) => {
@@ -82,10 +77,6 @@ const UserManagement = () => {
     dispatch(getListCourseApproved(user?.taiKhoan));
     dispatch(getAvailableCourseList(user?.taiKhoan));
     dispatch(getListUserType());
-  };
-
-  const handleCancelCourse = (codeCourrse, account = infoUser?.taiKhoan) => {
-    dispatch(CancellingCourseEnroll(codeCourrse, account));
   };
 
   const editUserHandler = (user) => {
@@ -134,10 +125,6 @@ const UserManagement = () => {
     return (total = index + 1);
   }, 0);
 
-  useEffect(() => {
-    dispatch(searchUserList(group, null));
-  }, [dispatch, group]);
-
   return (
     <div className="user__management">
       <div className="grid">
@@ -154,14 +141,20 @@ const UserManagement = () => {
                     <IoAddSharp />
                   </button>
 
-                  <p>
-                    <IoShieldCheckmark />
-                    {totalUser} users was found!
-                  </p>
+                  {loading ? null : (
+                    <p>
+                      <IoShieldCheckmark />
+                      {totalUser} users was found!
+                    </p>
+                  )}
 
                   <div className="filter">
                     <div className="item filter__group">
-                      <FilterGroup group={group} setGroup={setGroup} />
+                      <FilterGroup
+                        group={group}
+                        setGroup={setGroup}
+                        isPageUserManage="isPageUserManage"
+                      />
                     </div>
                   </div>
                 </div>
@@ -174,66 +167,71 @@ const UserManagement = () => {
                   />
                 </div>
               </div>
-              <div className="user__render">
-                <div className="user__render-content">
-                  <ul className="user__list">
-                    {userList?.map((user, index) => {
-                      return (
-                        <li key={index} className="item">
-                          <div className="item__content">
-                            <div
-                              className="item__left"
-                              onClick={() => viewUserHandler(user, index)}
-                            >
-                              <div className="user__img">
-                                {index > 69 ? (
-                                  <p>
-                                    <FaUserAlt />
-                                  </p>
-                                ) : (
-                                  <img
-                                    src={
-                                      index > 69
-                                        ? null
-                                        : `https://i.pravatar.cc/150?img=${
-                                            index + 1
-                                          }`
-                                    }
-                                    alt=""
-                                  />
-                                )}
 
-                                {user?.maLoaiNguoiDung === "GV" ? (
-                                  <span>{user?.maLoaiNguoiDung}</span>
-                                ) : null}
-                              </div>
-                              <div className="user__name-contact">
-                                <p>
-                                  {user?.taiKhoan}
-                                  <span>{user?.email}</span>
-                                </p>
-                              </div>
-                            </div>
-
-                            <div className="item__right">
-                              <button onClick={() => editUserHandler(user)}>
-                                <MdEdit />
-                              </button>
-                              <button
-                                onClick={() =>
-                                  deleteUserHandler(user?.taiKhoan)
-                                }
+              {loading ? (
+                <LoadingSmall />
+              ) : (
+                <div className="user__render">
+                  <div className="user__render-content">
+                    <ul className="user__list">
+                      {userList?.map((user, index) => {
+                        return (
+                          <li key={index} className="item">
+                            <div className="item__content">
+                              <div
+                                className="item__left"
+                                onClick={() => viewUserHandler(user, index)}
                               >
-                                <IoMdTrash />
-                              </button>
+                                <div className="user__img">
+                                  {index > 69 ? (
+                                    <p>
+                                      <FaUserAlt />
+                                    </p>
+                                  ) : (
+                                    <img
+                                      src={
+                                        index > 69
+                                          ? null
+                                          : `https://i.pravatar.cc/150?img=${
+                                              index + 1
+                                            }`
+                                      }
+                                      alt=""
+                                    />
+                                  )}
+
+                                  {user?.maLoaiNguoiDung === "GV" ? (
+                                    <span>{user?.maLoaiNguoiDung}</span>
+                                  ) : null}
+                                </div>
+                                <div className="user__name-contact">
+                                  <p>
+                                    {user?.taiKhoan}
+                                    <span>{user?.email}</span>
+                                  </p>
+                                </div>
+                              </div>
+
+                              <div className="item__right">
+                                <button onClick={() => editUserHandler(user)}>
+                                  <MdEdit />
+                                </button>
+                                <button
+                                  onClick={() =>
+                                    deleteUserHandler(user?.taiKhoan)
+                                  }
+                                >
+                                  <IoMdTrash />
+                                </button>
+                              </div>
                             </div>
-                          </div>
-                        </li>
-                      );
-                    })}
-                  </ul>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
 
@@ -277,22 +275,21 @@ const UserManagement = () => {
                         title="Pending Courses"
                         description="Need approve to allow the user accessing"
                         data={courseApproval}
+                        infoUser={infoUser}
                         indexParent={1}
-                        enrollHandler={enrollHandler}
-                        handleCancelCourse={handleCancelCourse}
                       />
 
                       <DropDownUserManage
                         title="Approved Courses"
                         description="The courses have already accessed by user"
                         data={courseApproved}
+                        infoUser={infoUser}
                         indexParent={2}
-                        handleCancelCourse={handleCancelCourse}
                       />
 
                       <DropDownUserManage
-                        enrollHandler={enrollHandler}
                         title="Available Courses"
+                        infoUser={infoUser}
                         description="Registing a course quickly for user"
                         data={availableCourses}
                         indexParent={3}
@@ -406,7 +403,6 @@ const UserManagement = () => {
                         <label htmlFor="">Choose Group</label>
                         <select
                           name="group"
-                          id=""
                           disabled={editUser}
                           value={infoUser?.maNhom || ""}
                           onChange={onChangeHandler}

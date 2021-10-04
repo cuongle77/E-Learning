@@ -3,6 +3,7 @@ import { courseReducer } from "./reducers/courses";
 import { courseManagementReducer } from "./reducers/course-management";
 import { authReducer } from "./reducers/auth";
 import { userManagementReducer } from "./reducers/user-management";
+import { composeWithDevTools } from "redux-devtools-extension";
 import reduxThunk from "redux-thunk";
 
 const rootReducer = combineReducers({
@@ -12,4 +13,7 @@ const rootReducer = combineReducers({
   userManagementReducer,
 });
 
-export const store = createStore(rootReducer, applyMiddleware(reduxThunk));
+export const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(reduxThunk))
+);

@@ -25,9 +25,7 @@ const SignUp = () => {
     resolver: yupResolver(schema),
   });
 
-  const handleRegister = (data) => {
-    console.log(data);
-  };
+  const handleRegister = (data) => {};
   return (
     <div className="user__join login">
       <div className="user__join__content">

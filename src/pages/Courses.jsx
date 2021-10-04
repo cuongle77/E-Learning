@@ -1,23 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { IoShieldCheckmark } from "react-icons/io5";
 import AllCourses from "../components/AllCourses";
 import CourseSort from "../components/CourseSort";
 import FilterCategory from "../components/FilterCategory";
 import FilterGroup from "../components/FilterGroup";
-import { fetchCategory, fetchCourses } from "../store/actions/courses";
+import LoadingSmall from "../components/LoadingSmall";
+import { fetchCourses } from "../store/actions/courses";
 
 const Courses = () => {
   const [group, setGroup] = useState("GP08");
   const [code, setCode] = useState("all");
   const [key, setKey] = useState("");
+  const { courses, tabsCategory, loading } = useSelector(
+    (state) => state.courseReducer
+  );
   const dispatch = useDispatch();
-  const { courses, tabsCategory } = useSelector((state) => state.courseReducer);
-
-  useEffect(() => {
-    dispatch(fetchCourses(code, group, key));
-    dispatch(fetchCategory());
-  }, [dispatch, group, code, key]);
 
   const handleSearchCourse = (value) => {
     setCode("all");
@@ -27,6 +25,10 @@ const Courses = () => {
   const totalCourse = courses?.reduce((total, course, index) => {
     return (total = index + 1);
   }, 0);
+
+  useEffect(() => {
+    return key === "" ? null : dispatch(fetchCourses(code, group, key));
+  }, [dispatch, code, key, group]);
 
   return (
     <div className="course__all">
@@ -44,7 +46,12 @@ const Courses = () => {
         </div>
 
         <div className="item filter__group">
-          <FilterGroup setGroup={setGroup} group={group} />
+          <FilterGroup
+            setGroup={setGroup}
+            code={code}
+            group={group}
+            key={key}
+          />
         </div>
 
         <div className="item search">
@@ -56,15 +63,21 @@ const Courses = () => {
         </div>
       </div>
 
-      <div className="count__course">
-        <p>
-          <IoShieldCheckmark />
-          {totalCourse} courses was found!
-        </p>
-      </div>
-      <div className="courses">
-        <AllCourses courses={courses} />
-      </div>
+      {loading ? (
+        <LoadingSmall />
+      ) : (
+        <>
+          <div className="count__course">
+            <p>
+              <IoShieldCheckmark />
+              {totalCourse} courses was found!
+            </p>
+          </div>
+          <div className="courses">
+            <AllCourses courses={courses} />
+          </div>
+        </>
+      )}
     </div>
   );
 };

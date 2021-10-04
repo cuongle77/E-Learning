@@ -9,7 +9,7 @@ import {
 } from "react-icons/io";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import Logo from "../assets/images/logo.webp";
+import Logo from "../assets/images/logo.png";
 import { searchCourses } from "../store/actions/courses";
 
 const Navbar = ({ handleShowFullSidebar }) => {
@@ -32,13 +32,9 @@ const Navbar = ({ handleShowFullSidebar }) => {
   };
 
   const onChangeHandler = (value) => {
-    if (value === "") {
-      setClear(false);
-      setBlur(false);
-    } else {
-      setClear(true);
-      setBlur(true);
-    }
+    value === ""
+      ? setClear(false) || setBlur(false)
+      : setClear(true) || setBlur(true);
     let matches = [];
     if (value) {
       matches = courseSearch.filter((course) => {
@@ -49,8 +45,6 @@ const Navbar = ({ handleShowFullSidebar }) => {
 
     setText(value);
     setSuggestions(matches);
-
-    dispatch(searchCourses(text, null));
   };
 
   const handleFocus = () => {
@@ -78,6 +72,10 @@ const Navbar = ({ handleShowFullSidebar }) => {
     };
   }, []);
 
+  useEffect(() => {
+    return text === "" ? null : dispatch(searchCourses(text, null));
+  }, [dispatch, text]);
+
   return (
     <nav className="navbar">
       <div className="nav__content">
@@ -99,7 +97,9 @@ const Navbar = ({ handleShowFullSidebar }) => {
               onFocus={handleFocus}
             />
             <IoIosClose
-              className={clear ? "nav__icon-clear show" : "nav__icon-clear"}
+              className={
+                !clear || !text ? "nav__icon-clear" : "nav__icon-clear show"
+              }
               onClick={clearValue}
             />
           </div>

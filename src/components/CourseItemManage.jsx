@@ -1,7 +1,7 @@
 import React from "react";
 import { IoMdTrash } from "react-icons/io";
 import { MdEdit } from "react-icons/md";
-import { deleteCourseAction } from "../store/actions/courses";
+import { deleteCourseAction } from "../store/actions/course-manage";
 
 const CourseItemManage = ({
   course,
@@ -29,13 +29,8 @@ const CourseItemManage = ({
     setCustomShow(false);
   };
 
-  const deleteCourse = (
-    maKhoaHoc,
-    keyword,
-    maNhom = group,
-    maDanhMuc = code
-  ) => {
-    dispatch(deleteCourseAction(maKhoaHoc, null, maNhom, maDanhMuc));
+  const deleteCourse = (maKhoaHoc) => {
+    dispatch(deleteCourseAction(maKhoaHoc, null, group, code));
   };
 
   return (

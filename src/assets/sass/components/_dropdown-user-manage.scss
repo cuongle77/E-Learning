@@ -4,13 +4,10 @@
   padding: 1rem 0;
   border-radius: 0.5rem;
   overflow-y: hidden;
-  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3),
-    0 1px 3px 1px rgba(60, 64, 67, 0.15);
-  transition: box-shadow 0.3s ease;
+  @include box__shadow;
 
   &:hover {
-    box-shadow: 0 1px 3px 0 rgba(60, 64, 67, 0.3),
-      0 4px 8px 3px rgba(60, 64, 67, 0.15);
+    @include box__shadow-hover;
   }
 
   > div {
@@ -63,11 +60,8 @@
       }
 
       > button {
-        box-shadow: none;
-        outline: none;
-        border: none;
+        @include button__reset;
         background-color: transparent;
-        cursor: pointer;
 
         > svg {
           font-size: 2rem;

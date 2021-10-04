@@ -46,6 +46,7 @@ const CourseDetails = (props) => {
     isHalf: true,
   };
   const [tabIndex, setTabIndex] = useState(0);
+  const [isEnroll, setIsEnroll] = useState(false);
   const dispatch = useDispatch();
   const { courseDetails } = useSelector((state) => state.courseReducer);
   const dataContent = [
@@ -117,6 +118,7 @@ const CourseDetails = (props) => {
 
   const handleEnroll = () => {
     dispatch(CourseEnroll(courseDetails?.maKhoaHoc, account.taiKhoan));
+    setIsEnroll(true);
   };
 
   return (
@@ -244,7 +246,9 @@ const CourseDetails = (props) => {
                     <h4>Free 0%</h4>
 
                     {account ? (
-                      <button onClick={handleEnroll}>Enroll now</button>
+                      <button onClick={handleEnroll}>
+                        {!isEnroll ? "Enroll now" : "Cancel course"}
+                      </button>
                     ) : (
                       <Link className="go_login" to="/login">
                         Login to enroll

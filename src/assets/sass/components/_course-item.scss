@@ -1,9 +1,13 @@
 .course__item {
   --spacing: 1.2rem;
   border-radius: 0.5rem;
-  box-shadow: 0px 3px 6px rgba($black-color, $alpha: 0.16);
+  @include box__shadow;
   overflow: hidden;
   margin-bottom: 2.4rem;
+
+  &:hover {
+    @include box__shadow-hover;
+  }
 
   .item__top {
     display: block;
@@ -53,11 +57,8 @@
     align-items: center;
 
     > .btn__using {
-      border: none;
-      box-shadow: none;
-      outline: none;
+      @include button__reset;
       background-color: transparent;
-      cursor: pointer;
       padding: 0;
 
       .icon__child {
