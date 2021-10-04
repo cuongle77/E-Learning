@@ -31,6 +31,9 @@ You can search filter by `category`, by `group`.
 
 ### `Administration system for advanced users`.
 
+Some features are still a work in progress.\
+May not bring a really good feeling of experience. :))
+
 ![Screen Shot 2021-10-04 at 3 22 46 PM](https://user-images.githubusercontent.com/59287305/135818066-1f231593-6e67-4fc5-852a-3706fd413a0c.png)
 ![Screen Shot 2021-10-04 at 3 23 40 PM](https://user-images.githubusercontent.com/59287305/135818098-4eccf8f3-3080-41bc-8293-be8a3d9b576f.png)
 
