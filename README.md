@@ -1,6 +1,6 @@
 # Welcome To My Little Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the domain that i deployed [Open](https://leecuong2k-demo-vivi.netlify.app/).
 
 ## Available Scripts
 
