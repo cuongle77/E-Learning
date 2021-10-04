@@ -21,15 +21,13 @@ If you are still trying to access, contact me.
 ![Screen Shot 2021-10-04 at 3 08 57 PM](https://user-images.githubusercontent.com/59287305/135816014-a48644c3-e829-44d4-9de0-476059617bcd.png)
 
 
-### `npm run build`
+### `Discover useful courses`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Here you can find all the great courses.\
+You can search filter by `category`, by `group`.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![Screen Shot 2021-10-04 at 3 13 08 PM](https://user-images.githubusercontent.com/59287305/135816932-523a0a6d-29e1-469d-bf5d-e16e677fc463.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
 ### `npm run eject`
 
