@@ -2,14 +2,16 @@
 
 This is the domain that i deployed [Open](https://leecuong2k-demo-vivi.netlify.app)
 
-## Available Scripts
+## Basic Features
 
-In the project directory, you can run:
+###Login
 
-### `npm start`
+![Screen Shot 2021-10-04 at 2 57 24 PM](https://user-images.githubusercontent.com/59287305/135814615-0a5fbfdd-b6ec-49c8-b4b9-088807fdee76.png)
+![Screen Shot 2021-10-04 at 2 57 51 PM](https://user-images.githubusercontent.com/59287305/135814704-07697eef-d4c9-4830-93e2-4e9cfe195d67.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+**Login information
+  + username: mytest
+  + password: 123456
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
