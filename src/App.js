@@ -11,6 +11,27 @@ import SignUp from "./pages/SignUp";
 import UserManagement from "./pages/UserManagement";
 import HomeTemplate from "./templates/HomeTemplate";
 import AdminTemplate from "./templates/AdminTemplate";
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyCiY2CWQhkgtJwIVtuULnFm1QkGaXVQ0Uc",
+  authDomain: "e-learning-0501.firebaseapp.com",
+  projectId: "e-learning-0501",
+  storageBucket: "e-learning-0501.appspot.com",
+  messagingSenderId: "941514828493",
+  appId: "1:941514828493:web:5bba4e4848176804779784",
+  measurementId: "G-46SWBDDNSN",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
 function App() {
   const user = JSON.parse(localStorage.getItem("account"));
