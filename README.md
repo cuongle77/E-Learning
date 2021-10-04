@@ -1,6 +1,6 @@
 # Welcome To My Little Project
 
-This is the domain that i deployed [Open](https://leecuong2k-demo-vivi.netlify.app/){:target="_blank" rel="noopener"}
+This is the domain that i deployed [Open](https://leecuong2k-demo-vivi.netlify.app/" target="_blank)
 
 ## Available Scripts
 
