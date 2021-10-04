@@ -40,7 +40,8 @@ May not bring a really good feeling of experience. :))
 ## Learn More
 
 You can contact me flowing via.
-  [Facebook](https://www.facebook.com/leecuong2k).
+
+  [Facebook](https://www.facebook.com/leecuong2k).\
   [Linkedin](https://www.linkedin.com/in/trungcuongle2k/).
   
 Thanks for the review.
