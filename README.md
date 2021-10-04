@@ -31,13 +31,12 @@ You can search filter by `category`, by `group`.
 
 ### `Administration system for advanced users`.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+![Screen Shot 2021-10-04 at 3 22 46 PM](https://user-images.githubusercontent.com/59287305/135818066-1f231593-6e67-4fc5-852a-3706fd413a0c.png)
+![Screen Shot 2021-10-04 at 3 22 59 PM](https://user-images.githubusercontent.com/59287305/135818076-7f9ddc81-76bc-434e-8587-6820240d8a79.png)
+![Screen Shot 2021-10-04 at 3 23 12 PM](https://user-images.githubusercontent.com/59287305/135818081-1b3e166f-f54a-42a7-955f-6b7b493952e9.png)
+![Screen Shot 2021-10-04 at 3 23 40 PM](https://user-images.githubusercontent.com/59287305/135818098-4eccf8f3-3080-41bc-8293-be8a3d9b576f.png)
+![Screen Shot 2021-10-04 at 3 23 58 PM](https://user-images.githubusercontent.com/59287305/135818109-c8c79f2d-a705-4b78-be48-cac82332fd59.png)
+![Screen Shot 2021-10-04 at 3 24 09 PM](https://user-images.githubusercontent.com/59287305/135818117-8baf4369-5a83-4929-b44a-b2b860400105.png)
 
 ## Learn More
 
