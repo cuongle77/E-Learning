@@ -1,6 +1,6 @@
 # Welcome To My Little Project
 
-This is the domain that i deployed [Open](https://leecuong2k-demo-vivi.netlify.app/")
+This is the domain that i deployed [Open](https://leecuong2k-demo-vivi.netlify.app)
 
 ## Available Scripts
 
