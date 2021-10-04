@@ -29,7 +29,7 @@ You can search filter by `category`, by `group`.
 ![Screen Shot 2021-10-04 at 3 13 08 PM](https://user-images.githubusercontent.com/59287305/135816932-523a0a6d-29e1-469d-bf5d-e16e677fc463.png)
 
 
-### `npm run eject`
+### `Administration system for advanced users`.
 
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
