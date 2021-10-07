@@ -34,8 +34,6 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
 function App() {
-  const user = JSON.parse(localStorage.getItem("account"));
-  const isAdmin = user && user.maLoaiNguoiDung === "GV";
   return (
     <BrowserRouter>
       <ScrollToTop />
@@ -51,13 +49,11 @@ function App() {
           exact
           path="/course-management"
           Component={CourseManagement}
-          isAdmin={isAdmin}
         />
         <AdminTemplate
           exact
           path="/user-management"
           Component={UserManagement}
-          isAdmin={isAdmin}
         />
 
         <Route exact path="/" component={Home} />
