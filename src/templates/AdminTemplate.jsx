@@ -5,7 +5,7 @@ import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 
 const AdminTemplate = (props) => {
-  const { Component, isAdmin, ...restRoute } = props;
+  const { Component, ...restRoute } = props;
   const [isShow, setIsShow] = useState(false);
   const handleShowFullSidebar = (e) => {
     return !isShow ? setIsShow(true) : setIsShow(false);
@@ -17,20 +17,16 @@ const AdminTemplate = (props) => {
       render={(propsRoute) => {
         return (
           <>
-            {isAdmin ? (
-              <>
-                <Navbar handleShowFullSidebar={handleShowFullSidebar} />
-                <MainWrapper className="main">
-                  <Sidebar isShow={isShow} />
+            <Navbar handleShowFullSidebar={handleShowFullSidebar} />
+            <MainWrapper className="main">
+              <Sidebar isShow={isShow} />
 
-                  <div className="wrapper">
-                    <div className="home__content">
-                      <Component {...propsRoute} />
-                    </div>
-                  </div>
-                </MainWrapper>
-              </>
-            ) : null}
+              <div className="wrapper">
+                <div className="home__content">
+                  <Component {...propsRoute} />
+                </div>
+              </div>
+            </MainWrapper>
           </>
         );
       }}
